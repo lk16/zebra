@@ -1,3 +1,14 @@
+# Zebra
+
+This repo started after cloning from ... on 2021/09/21
+
+Generate book text dump:
+
+```sh
+./booktool -rb book.bin -w dump.txt
+```
+
+
 Zebra
 =====
 
