@@ -1,0 +1,14 @@
+*.o
+*.err
+*.log
+*.code-workspace
+zebra
+tune8dbs
+scrzebra
+practice
+*.a
+enddev
+current.gam
+current.mov
+booktool
+dump.txt
