@@ -104,6 +104,8 @@ typedef struct {
 } StatisticsSpec;
 
 
+extern int quiet;
+
 
 /* Local variables */
 
@@ -2878,8 +2880,10 @@ read_binary_database( const char *file_name ) {
   time( &start_time );
 
 #ifdef TEXT_BASED
-  printf( "Reading binary opening database... " );
-  fflush( stdout );
+  if ( !quiet ) {
+    printf( "Reading binary opening database... " );
+    fflush( stdout );
+  }
 #endif
 
   stream = fopen( file_name, "rb" );
@@ -2915,7 +2919,8 @@ read_binary_database( const char *file_name ) {
   time( &stop_time );
 
 #ifdef TEXT_BASED
-  printf( "done (took %d s)\n", (int) (stop_time - start_time) );
+  if ( !quiet )
+    printf( "done (took %d s)\n", (int) (stop_time - start_time) );
 #endif
 }
 
@@ -4164,16 +4169,18 @@ print_move_alternatives( int side_to_move ) {
       score += CONFIRMED_WIN;
 
 #ifdef TEXT_BASED
-    printf( "Book score is " );
-    if ( node[book_hash_table[slot]].flags & FULL_SOLVED )
-      printf( "%+d (exact score).", sign * score );
-    else if ( node[book_hash_table[slot]].flags & WLD_SOLVED )
-      printf( "%+d (W/L/D solved).", sign * score );
-    else
-      printf( "%+.2f.", (sign * score) / 128.0 );
-    if ( node[book_hash_table[slot]].flags & PRIVATE_NODE )
-      printf( " Private node." );
-    puts( "" );
+    if ( !quiet ) {
+      printf( "Book score is " );
+      if ( node[book_hash_table[slot]].flags & FULL_SOLVED )
+        printf( "%+d (exact score).", sign * score );
+      else if ( node[book_hash_table[slot]].flags & WLD_SOLVED )
+        printf( "%+d (W/L/D solved).", sign * score );
+      else
+        printf( "%+.2f.", (sign * score) / 128.0 );
+      if ( node[book_hash_table[slot]].flags & PRIVATE_NODE )
+        printf( " Private node." );
+      puts( "" );
+    }
 #endif
 
     for ( i = 0; i < candidate_count; i++ ) {
@@ -4242,7 +4249,8 @@ get_book_move( int side_to_move,
 
   if ( echo && (candidate_count > 0) && !get_ponder_move() ) {
 #ifdef TEXT_BASED
-    printf( "Slack left is %.2f. ", remaining_slack / 128.0 );
+    if ( !quiet )
+      printf( "Slack left is %.2f. ", remaining_slack / 128.0 );
 #endif
     print_move_alternatives( side_to_move );
   }

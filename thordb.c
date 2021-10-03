@@ -162,7 +162,7 @@ typedef struct {
   PlayerFilterType player_filter;
 } FilterType;
 
-
+extern int quiet;
 
 /* Local variables */
 
@@ -1866,15 +1866,17 @@ choose_thor_opening_move( int *in_board, int side_to_move, int echo ) {
             move_list[j + 1] = temp;
           }
 #ifdef TEXT_BASED
-      printf( "%s:        ", THOR_TEXT );
-      for ( i = 0; i < match_count; i++ ) {
-        printf( "%c%c: %4.1f%%    ", TO_SQUARE( move_list[i].move ),
-                (100.0 * move_list[i].frequency) / freq_sum );
-        if ( i % 6 == 4 )
+      if ( !quiet ) {
+        printf( "%s:        ", THOR_TEXT );
+        for ( i = 0; i < match_count; i++ ) {
+          printf( "%c%c: %4.1f%%    ", TO_SQUARE( move_list[i].move ),
+                  (100.0 * move_list[i].frequency) / freq_sum );
+          if ( i % 6 == 4 )
+            puts( "" );
+        }
+        if ( match_count % 6 != 5 )
           puts( "" );
       }
-      if ( match_count % 6 != 5 )
-        puts( "" );
 #endif
     }
 

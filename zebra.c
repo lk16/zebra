@@ -85,6 +85,7 @@ static int tournament_levels;
 static int deviation_depth, cutoff_empty;
 static int one_position_only = FALSE;
 static int eval_one = FALSE;
+int quiet = FALSE;
 static int use_timer = FALSE;
 static int only_analyze = FALSE;
 static int thor_max_games;
@@ -172,7 +173,8 @@ main( int argc, char *argv[] ) {
   printf( "\nscrZebra (c) 1997-2005 Gunnar Andersson, compile "
           "date %s at %s\n\n", __DATE__, __TIME__ );
 #else
-  printf( "\nZebra (c) 1997-2005 Gunnar Andersson, compile "
+  if (!(argc >= 2 && !strcasecmp(argv[1], "-quiet"))) // HACK because arguments get parsed much later
+    printf( "\nZebra (c) 1997-2005 Gunnar Andersson, compile "
           "date %s at %s\n\n", __DATE__, __TIME__ );
 #endif
 
@@ -367,6 +369,8 @@ main( int argc, char *argv[] ) {
       one_position_only = TRUE;
     else if ( !strcasecmp( argv[arg_index], "-evalone" ) )
       eval_one = TRUE;
+    else if ( !strcasecmp( argv[arg_index], "-quiet" ) )
+      quiet = TRUE;
     else if ( !strcasecmp( argv[arg_index], "-seq" ) ) {
       if ( ++arg_index == argc ) {
         help = TRUE;
@@ -814,7 +818,7 @@ play_game( const char *file_name,
   setup_hash( TRUE );
   clear_stored_game();
 
-  if ( echo && use_book )
+  if ( echo && use_book && !quiet )
     printf( "Book randomness: %.2f disks\n", slack );
   set_slack( floor( slack * 128.0 ) );
   toggle_human_openings( FALSE );
@@ -956,7 +960,7 @@ play_game( const char *file_name,
         set_times( floor( player_time[BLACKSQ] ),
                    floor( player_time[WHITESQ] ) );
         opening_name = find_opening_name();
-        if ( opening_name != NULL )
+        if ( opening_name != NULL && !quiet )
           printf( "\nOpening: %s\n", opening_name );
         if ( use_thor ) {
           database_start = get_real_timer();
@@ -978,7 +982,9 @@ play_game( const char *file_name,
           }
           print_thor_matches( stdout, thor_max_games );
         }
-        display_board( stdout, board, side_to_move, TRUE, use_timer, TRUE );
+        if ( !quiet ) {
+          display_board( stdout, board, side_to_move, TRUE, use_timer, TRUE );
+        }
       }
       dump_position( side_to_move );
       dump_game_score( side_to_move );
