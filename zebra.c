@@ -84,6 +84,7 @@ static int tournament = FALSE;
 static int tournament_levels;
 static int deviation_depth, cutoff_empty;
 static int one_position_only = FALSE;
+static int eval_one = FALSE;
 static int use_timer = FALSE;
 static int only_analyze = FALSE;
 static int thor_max_games;
@@ -364,6 +365,8 @@ main( int argc, char *argv[] ) {
       set_draw_mode( OPPONENT_WINS );
     else if ( !strcasecmp( argv[arg_index], "-test" ) )
       one_position_only = TRUE;
+    else if ( !strcasecmp( argv[arg_index], "-evalone" ) )
+      eval_one = TRUE;
     else if ( !strcasecmp( argv[arg_index], "-seq" ) ) {
       if ( ++arg_index == argc ) {
         help = TRUE;
@@ -1012,6 +1015,9 @@ play_game( const char *file_name,
                           use_book, skill[side_to_move],
                           exact_skill[side_to_move], wld_skill[side_to_move],
                           FALSE, &eval_info );
+          if ( eval_one ) {
+            return;
+          }
           if ( side_to_move == BLACKSQ )
             set_evals( produce_compact_eval( eval_info ), 0.0 );
           else

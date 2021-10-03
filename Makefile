@@ -13,195 +13,195 @@
 # --- Files ---
 
 SRCS = \
-        bitbcnt.c \
-        bitbmob.c \
-        bitboard.c \
-        bitbtest.c \
-        cntflip.c \
-        counter.c \
-        display.c \
-        doflip.c \
-        end.c \
-        epcstat.c \
-        error.c \
-        eval.c \
-        game.c \
-        getcoeff.c \
-        globals.c \
-        hash.c \
-        learn.c \
-        midgame.c \
-        moves.c \
-        myrandom.c \
-        opname.c \
-        osfbook.c \
-        patterns.c \
-        pcstat.c \
-        probcut.c \
-        safemem.c \
-        search.c \
-        stable.c \
-        thordb.c \
-        timer.c \
-        unflip.c
+	bitbcnt.c \
+	bitbmob.c \
+	bitboard.c \
+	bitbtest.c \
+	cntflip.c \
+	counter.c \
+	display.c \
+	doflip.c \
+	end.c \
+	epcstat.c \
+	error.c \
+	eval.c \
+	game.c \
+	getcoeff.c \
+	globals.c \
+	hash.c \
+	learn.c \
+	midgame.c \
+	moves.c \
+	myrandom.c \
+	opname.c \
+	osfbook.c \
+	patterns.c \
+	pcstat.c \
+	probcut.c \
+	safemem.c \
+	search.c \
+	stable.c \
+	thordb.c \
+	timer.c \
+	unflip.c
 
 HEADERS = \
-        autoplay.h \
-        bitbcnt.h \
-        bitbmob.h \
-        bitboard.h \
-        bitbtest.h \
-        cntflip.h \
-        constant.h \
-        counter.h \
-        display.h \
-        doflip.h \
-        end.h \
-        epcstat.h \
-        error.h \
-        eval.h \
-        game.h \
-        getcoeff.h \
-        globals.h \
-        hash.h \
-        learn.h \
-        macros.h \
-        magic.h \
-        midgame.h \
-        moves.h \
-        myrandom.h \
-        opname.h \
-        osfbook.h \
-        patterns.h \
-        pcstat.h \
-        porting.h \
-        probcut.h \
-        psdump.h \
-        safemem.h \
-        search.h \
-        stable.h \
-        texts.h \
-        thordb.h \
-        timer.h \
-        unflip.h
+	autoplay.h \
+	bitbcnt.h \
+	bitbmob.h \
+	bitboard.h \
+	bitbtest.h \
+	cntflip.h \
+	constant.h \
+	counter.h \
+	display.h \
+	doflip.h \
+	end.h \
+	epcstat.h \
+	error.h \
+	eval.h \
+	game.h \
+	getcoeff.h \
+	globals.h \
+	hash.h \
+	learn.h \
+	macros.h \
+	magic.h \
+	midgame.h \
+	moves.h \
+	myrandom.h \
+	opname.h \
+	osfbook.h \
+	patterns.h \
+	pcstat.h \
+	porting.h \
+	probcut.h \
+	psdump.h \
+	safemem.h \
+	search.h \
+	stable.h \
+	texts.h \
+	thordb.h \
+	timer.h \
+	unflip.h
 
 
-BOOKTOOL_SRCS        = $(SRCS) booktool.c
+BOOKTOOL_SRCS	= $(SRCS) booktool.c
 
-PRACTICE_SRCS        = practice.c
-ENDDEV_SRCS        = enddev.c
-ALL_SRCS        = $(SRCS) $(PRACTICE_SRCS) $(ENDDEV_SRCS) zebra.c scrzebra.c booktool.c autop.c thorop.c tune8dbs.c
+PRACTICE_SRCS	= practice.c
+ENDDEV_SRCS	= enddev.c
+ALL_SRCS	= $(SRCS) $(PRACTICE_SRCS) $(ENDDEV_SRCS) zebra.c scrzebra.c booktool.c autop.c thorop.c tune8dbs.c
 
 OBJS            = $(SRCS:.c=.o)
-BOOKTOOL_OBJS        = $(BOOKTOOL_SRCS:.c=.o)
-PRACTICE_OBJS        = $(PRACTICE_SRCS:.c=.o)
-ENDDEV_OBJS        = $(ENDDEV_SRCS:.c=.o)
+BOOKTOOL_OBJS	= $(BOOKTOOL_SRCS:.c=.o)
+PRACTICE_OBJS	= $(PRACTICE_SRCS:.c=.o)
+ENDDEV_OBJS	= $(ENDDEV_SRCS:.c=.o)
 
-AUTOPLAY_EXE        = autoplay
-BOOKTOOL_EXE        = booktool
-PRACTICE_EXE        = practice
-ENDDEV_EXE        = enddev
-ZEBRA_EXE        = zebra
-SCRZEBRA_EXE        = scrzebra
-TUNE8DBS_EXE        =        tune8dbs
+AUTOPLAY_EXE	= autoplay
+BOOKTOOL_EXE	= booktool
+PRACTICE_EXE	= practice
+ENDDEV_EXE	= enddev
+ZEBRA_EXE	= zebra
+SCRZEBRA_EXE	= scrzebra
+TUNE8DBS_EXE	=	tune8dbs
 
 
 
 # --- Libraries
 
-LDFLAGS                = -static -lm -lz
-#LDFLAGS        = -static -lm -lz -Wl,-Map,map.out
+LDFLAGS		= -static -lm -lz
+#LDFLAGS	= -static -lm -lz -Wl,-Map,map.out
 
 
 
 # --- Programs ---
 
 CC              = gcc
-CXX                = g++
+CXX		= g++
 
 
 # --- Flags ---
 
-DEFS =                -DINCLUDE_BOOKTOOL -DTEXT_BASED -DZLIB_STATIC
+DEFS =		-DINCLUDE_BOOKTOOL -DTEXT_BASED -DZLIB_STATIC
 
-WARNINGS =        -Wall -Wcast-align -Wwrite-strings -Wstrict-prototypes -Winline
-OPTS =                -O4 -s -fomit-frame-pointer -falign-functions=32
-#OPTS =                -O4 -s -fomit-frame-pointer -mtune=core2 -falign-functions=32
+WARNINGS =	-Wall -Wcast-align -Wwrite-strings -Wstrict-prototypes -Winline
+#OPTS =		-O4 -s -fomit-frame-pointer -falign-functions=32
+OPTS =		-g
 
-CFLAGS =        $(OPTS) $(WARNINGS) $(DEFS)
-CXXFLAGS =        $(CFLAGS)
+CFLAGS =	$(OPTS) $(WARNINGS) $(DEFS)
+CXXFLAGS =	$(CFLAGS)
 
 
 
 # --- Targets ---
 
-all                : libzebra.a zebra scrzebra booktool practice enddev tune8dbs
+all		: libzebra.a zebra scrzebra booktool practice enddev tune8dbs
 
-zebra                : $(OBJS) zebra.o autop.o
-        $(CC) -o $(ZEBRA_EXE) $(CFLAGS) $(OBJS) zebra.o autop.o $(LDFLAGS)
+zebra		: $(OBJS) zebra.o autop.o
+	$(CC) -o $(ZEBRA_EXE) $(CFLAGS) $(OBJS) zebra.o autop.o $(LDFLAGS)
 
-scrzebra        : $(OBJS) scrzebra.o autop.o
-        $(CC) -o $(SCRZEBRA_EXE) $(CFLAGS) $(OBJS) scrzebra.o autop.o $(LDFLAGS)
+scrzebra	: $(OBJS) scrzebra.o autop.o
+	$(CC) -o $(SCRZEBRA_EXE) $(CFLAGS) $(OBJS) scrzebra.o autop.o $(LDFLAGS)
 
-libzebra.a:        $(OBJS)
-        ar rcv libzebra.a $(OBJS)
-        ranlib libzebra.a
+libzebra.a:	$(OBJS)
+	ar rcv libzebra.a $(OBJS)
+	ranlib libzebra.a
 
-clean                :
-        $(RM) $(OBJS) booktool.o zebra.o scrzebra.o $(ZEBRA_EXE) a.out core \
-        *.stackdump gmon.out $(PRACTICE_OBJS) $(PRACTICE_EXE) \
-        libzebra.a *.da autop.o \
-        $(BOOKTOOL_OBJS) $(ENDDEV_OBJS) \
-        $(AUTOPLAY_EXE) $(BOOKTOOL_EXE) $(ENDDEV_EXE) $(SCRZEBRA_EXE) $(TUNE8DBS_EXE) \
+clean		:
+	$(RM) $(OBJS) booktool.o zebra.o scrzebra.o $(ZEBRA_EXE) a.out core \
+	*.stackdump gmon.out $(PRACTICE_OBJS) $(PRACTICE_EXE) \
+	libzebra.a *.da autop.o \
+	$(BOOKTOOL_OBJS) $(ENDDEV_OBJS) \
+	$(AUTOPLAY_EXE) $(BOOKTOOL_EXE) $(ENDDEV_EXE) $(SCRZEBRA_EXE) $(TUNE8DBS_EXE) \
 
 
-booktool        : $(OBJS) $(BOOKTOOL_OBJS) autop.o
-        $(CC) -o $(BOOKTOOL_EXE) $(CFLAGS) $(BOOKTOOL_OBJS) autop.o $(LDFLAGS)
+booktool	: $(OBJS) $(BOOKTOOL_OBJS) autop.o
+	$(CC) -o $(BOOKTOOL_EXE) $(CFLAGS) $(BOOKTOOL_OBJS) autop.o $(LDFLAGS)
 
-practice        : $(PRACTICE_OBJS) $(OBJS) autop.o
-        $(CC) -o $(PRACTICE_EXE) $(CFLAGS) $(PRACTICE_OBJS) $(OBJS) autop.o $(LDFLAGS)
+practice	: $(PRACTICE_OBJS) $(OBJS) autop.o
+	$(CC) -o $(PRACTICE_EXE) $(CFLAGS) $(PRACTICE_OBJS) $(OBJS) autop.o $(LDFLAGS)
 
-enddev        : $(ENDDEV_OBJS) $(OBJS) autop.o
-        $(CC) -o $(ENDDEV_EXE) $(CFLAGS) $(ENDDEV_OBJS) $(OBJS) autop.o $(LDFLAGS)
+enddev	: $(ENDDEV_OBJS) $(OBJS) autop.o
+	$(CC) -o $(ENDDEV_EXE) $(CFLAGS) $(ENDDEV_OBJS) $(OBJS) autop.o $(LDFLAGS)
 
 zsrc:
-        tar cf zebra.tar $(ALL_SRCS) $(HEADERS) Makefile \
-        openings.txt COPYING README
-        gzip --best -f zebra.tar
+	tar cf zebra.tar $(ALL_SRCS) $(HEADERS) Makefile \
+	openings.txt COPYING README
+	gzip --best -f zebra.tar
 
 bookinst:
-        $(CC) -o bookinst $(CFLAGS) bookinst.c myrandom.o
+	$(CC) -o bookinst $(CFLAGS) bookinst.c myrandom.o
 
 tune8dbs:
-        $(CC) -o $(TUNE8DBS_EXE) $(CFLAGS) tune8dbs.c $(LDFLAGS)
+	$(CC) -o $(TUNE8DBS_EXE) $(CFLAGS) tune8dbs.c $(LDFLAGS)
 
-genbb:        genbb.o
-        $(CC) -o genbb genbb.o
+genbb:	genbb.o
+	$(CC) -o genbb genbb.o
 
-genmmx:        genmmx.o
-        $(CXX) -o genmmx genmmx.o
+genmmx:	genmmx.o
+	$(CXX) -o genmmx genmmx.o
 
 depend:
-        makedepend -Y $(ALL_SRCS)
+	makedepend -Y $(ALL_SRCS)
 
 # .s file dependencies.
 
-bitbcnt.s        : bitbcnt.c bitboard.h
-        $(CC) $(CFLAGS) -S bitbcnt.c
-bitbmob.s        : bitboard.h bitbmob.c end.h
-        $(CC) $(CFLAGS) -S bitbmob.c
-bitbtest.s        : bitboard.h bitbtest.c
-        $(CC) $(CFLAGS) -S bitbtest.c
-bitbvald.s        : bitboard.h bitbvald.c
-        $(CC) $(CFLAGS) -S bitbvald.c
-doflip.s        : doflip.c error.h globals.h hash.h macros.h moves.h patterns.h texts.h unflip.h
-        $(CC) $(CFLAGS) -S doflip.c
-end.s                : autoplay.h bitbcnt.h bitbmob.h bitboard.h bitbtest.h cntflip.h constant.h counter.h display.h doflip.h end.c end.h epcstat.h eval.h getcoeff.h globals.h hash.h macros.h midgame.h moves.h osfbook.h probcut.h search.h stable.h texts.h timer.h unflip.h
-        $(CC) $(CFLAGS) -S end.c
-getcoeff.s        :  constant.h error.h eval.h getcoeff.c macros.h magic.h moves.h patterns.h safemem.h search.h texts.h
-        $(CC) $(CFLAGS) -S getcoeff.c
-moves.s                : cntflip.h constant.h doflip.h globals.h hash.h macros.h moves.c moves.h patterns.h search.h texts.h unflip.h
-        $(CC) $(CFLAGS) -S moves.c
+bitbcnt.s	: bitbcnt.c bitboard.h
+	$(CC) $(CFLAGS) -S bitbcnt.c
+bitbmob.s	: bitboard.h bitbmob.c end.h
+	$(CC) $(CFLAGS) -S bitbmob.c
+bitbtest.s	: bitboard.h bitbtest.c
+	$(CC) $(CFLAGS) -S bitbtest.c
+bitbvald.s	: bitboard.h bitbvald.c
+	$(CC) $(CFLAGS) -S bitbvald.c
+doflip.s	: doflip.c error.h globals.h hash.h macros.h moves.h patterns.h texts.h unflip.h
+	$(CC) $(CFLAGS) -S doflip.c
+end.s		: autoplay.h bitbcnt.h bitbmob.h bitboard.h bitbtest.h cntflip.h constant.h counter.h display.h doflip.h end.c end.h epcstat.h eval.h getcoeff.h globals.h hash.h macros.h midgame.h moves.h osfbook.h probcut.h search.h stable.h texts.h timer.h unflip.h
+	$(CC) $(CFLAGS) -S end.c
+getcoeff.s	:  constant.h error.h eval.h getcoeff.c macros.h magic.h moves.h patterns.h safemem.h search.h texts.h
+	$(CC) $(CFLAGS) -S getcoeff.c
+moves.s		: cntflip.h constant.h doflip.h globals.h hash.h macros.h moves.c moves.h patterns.h search.h texts.h unflip.h
+	$(CC) $(CFLAGS) -S moves.c
 
 # The dependendices below were generated by "make depend".
 # DO NOT DELETE
