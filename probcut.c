@@ -4,7 +4,7 @@
    Created:       March 1, 1998
 
    Modified:      November 24, 2002
-   
+
    Author:        Gunnar Andersson (gunnar@radagast.se)
 
    Contents:      The initialization of the Multi-ProbCut search parameters.
@@ -47,10 +47,10 @@ set_probcut( int depth, int shallow ) {
   for ( i = 0; i <= 60; i++ ) {
     mpc_cut[depth].bias[this_try][i] =
       floor( 128.0 * (mid_corr[i][shallow].const_base +
-		      mid_corr[i][shallow].const_slope * shallow) );
+                      mid_corr[i][shallow].const_slope * shallow) );
     mpc_cut[depth].window[this_try][i] =
       floor( 128.0 * (mid_corr[i][shallow].sigma_base +
-		      mid_corr[i][shallow].sigma_slope * shallow) );
+                      mid_corr[i][shallow].sigma_slope * shallow) );
   }
   mpc_cut[depth].cut_tries++;
 }

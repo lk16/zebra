@@ -2,7 +2,7 @@
    File:         timer.c
 
    Created:      September 28, 1997
-   
+
    Modified:     November 13, 2001
 
    Author:       Gunnar Andersson (gunnar@radagast.se)
@@ -192,7 +192,7 @@ determine_move_time( double time_left, double incr, int discs ) {
   frozen_ponder_time = current_ponder_time;
   frozen_ponder_depth = current_ponder_depth;
   moves_left = MAX( ((65 - discs) / 2) - 5, 2 );
-  time_available = time_left + frozen_ponder_time + 
+  time_available = time_left + frozen_ponder_time +
     moves_left * incr - SAFETY_MARGIN;
   if ( time_available < 1.0 )
     time_available = 1.0;
@@ -388,5 +388,5 @@ above_recommended( void ) {
 INLINE int
 extended_above_recommended(void) {
   return (get_elapsed_time() + frozen_ponder_time >=
-	  PONDER_FACTOR * time_per_move);
+          PONDER_FACTOR * time_per_move);
 }

@@ -44,7 +44,7 @@
  * zeroeth element of the array is the type of R.N.G. being used (small
  * integer); the remainder of the array is the state information for the
  * R.N.G.  Thus, 32 bytes of state information will give 7 longs worth of
- * state information, which will allow a degree seven polynomial.  (Note: the 
+ * state information, which will allow a degree seven polynomial.  (Note: the
  * zeroeth word of state information also has some other information stored
  * in it -- see setstate() for details).
  * The random number generation technique is a linear feedback shift register
@@ -73,30 +73,30 @@
  * the separation between the two lower order coefficients of the trinomial.
  */
 
-#define		TYPE_0		0		/* linear congruential */
-#define		BREAK_0		8
-#define		DEG_0		0
-#define		SEP_0		0
+#define                TYPE_0                0                /* linear congruential */
+#define                BREAK_0                8
+#define                DEG_0                0
+#define                SEP_0                0
 
-#define		TYPE_1		1		/* x**7 + x**3 + 1 */
-#define		BREAK_1		32
-#define		DEG_1		7
-#define		SEP_1		3
+#define                TYPE_1                1                /* x**7 + x**3 + 1 */
+#define                BREAK_1                32
+#define                DEG_1                7
+#define                SEP_1                3
 
-#define		TYPE_2		2		/* x**15 + x + 1 */
-#define		BREAK_2		64
-#define		DEG_2		15
-#define		SEP_2		1
+#define                TYPE_2                2                /* x**15 + x + 1 */
+#define                BREAK_2                64
+#define                DEG_2                15
+#define                SEP_2                1
 
-#define		TYPE_3		3		/* x**31 + x**3 + 1 */
-#define		BREAK_3		128
-#define		DEG_3		31
-#define		SEP_3		3
+#define                TYPE_3                3                /* x**31 + x**3 + 1 */
+#define                BREAK_3                128
+#define                DEG_3                31
+#define                SEP_3                3
 
-#define		TYPE_4		4		/* x**63 + x + 1 */
-#define		BREAK_4		256
-#define		DEG_4		63
-#define		SEP_4		1
+#define                TYPE_4                4                /* x**63 + x + 1 */
+#define                BREAK_4                256
+#define                DEG_4                63
+#define                SEP_4                1
 
 
 /*
@@ -110,24 +110,24 @@ static int my_seps[MAX_TYPES] = { SEP_0, SEP_1, SEP_2, SEP_3, SEP_4 };
 
 /*
  * Initially, everything is set up as if from :
- *		initstate( 1, &randtbl, 128 );
+ *                initstate( 1, &randtbl, 128 );
  * Note that this initialization takes advantage of the fact that srandom()
  * advances the front and rear pointers 10*rand_deg times, and hence the
  * rear pointer which starts at 0 will also end up at zero; thus the zeroeth
  * element of the state information, which contains info about the current
  * position of the rear pointer is just
- *	MAX_TYPES*(rptr - state) + TYPE_3 == TYPE_3.
+ *        MAX_TYPES*(rptr - state) + TYPE_3 == TYPE_3.
  */
 
 static unsigned long my_randtbl[DEG_3 + 1] = { TYPE_3,
-			    0x9a319039U, 0x32d9c024U, 0x9b663182U, 0x5da1f342U, 
-			    0xde3b81e0U, 0xdf0a6fb5U, 0xf103bc02U, 0x48f340fbU, 
-			    0x7449e56bU, 0xbeb1dbb0U, 0xab5c5918U, 0x946554fdU, 
-			    0x8c2e680fU, 0xeb3d799fU, 0xb11ee0b7U, 0x2d436b86U, 
-			    0xda672e2aU, 0x1588ca88U, 0xe369735dU, 0x904f35f7U, 
-			    0xd7158fd6U, 0x6fa6f051U, 0x616e6b96U, 0xac94efdcU, 
-			    0x36413f93U, 0xc622c298U, 0xf5a42ab8U, 0x8a88d77bU, 
-					 0xf5ad9d0eU, 0x8999220bU, 0x27fb47b9U };
+                            0x9a319039U, 0x32d9c024U, 0x9b663182U, 0x5da1f342U,
+                            0xde3b81e0U, 0xdf0a6fb5U, 0xf103bc02U, 0x48f340fbU,
+                            0x7449e56bU, 0xbeb1dbb0U, 0xab5c5918U, 0x946554fdU,
+                            0x8c2e680fU, 0xeb3d799fU, 0xb11ee0b7U, 0x2d436b86U,
+                            0xda672e2aU, 0x1588ca88U, 0xe369735dU, 0x904f35f7U,
+                            0xd7158fd6U, 0x6fa6f051U, 0x616e6b96U, 0xac94efdcU,
+                            0x36413f93U, 0xc622c298U, 0xf5a42ab8U, 0x8a88d77bU,
+                                         0xf5ad9d0eU, 0x8999220bU, 0x27fb47b9U };
 
 /*
  * fptr and rptr are two pointers into the state info, a front and a rear
@@ -135,14 +135,14 @@ static unsigned long my_randtbl[DEG_3 + 1] = { TYPE_3,
  * cyclically through the state information.  (Yes, this does mean we could get
  * away with just one pointer, but the code for random() is more efficient this
  * way).  The pointers are left positioned as they would be from the call
- *			initstate( 1, randtbl, 128 )
+ *                        initstate( 1, randtbl, 128 )
  * (The position of the rear pointer, rptr, is really 0 (as explained above
  * in the initialization of randtbl) because the state table pointer is set
  * to point to randtbl[1] (as explained below).
  */
 
-static  long		*my_fptr		= (long *) &my_randtbl[ SEP_3 + 1 ];
-static  long		*my_rptr		= (long *) &my_randtbl[ 1 ];
+static  long                *my_fptr                = (long *) &my_randtbl[ SEP_3 + 1 ];
+static  long                *my_rptr                = (long *) &my_randtbl[ 1 ];
 
 /*
  * The following things are the pointer to the state information table,
@@ -156,11 +156,11 @@ static  long		*my_rptr		= (long *) &my_randtbl[ 1 ];
  * the front and rear pointers have wrapped.
  */
 
-static  long		*my_state		= (long *) &my_randtbl[ 1 ];
-static  int		my_rand_type		= TYPE_3;
-static  int		my_rand_deg		= DEG_3;
-static  int		my_rand_sep		= SEP_3;
-static  long		*my_end_ptr		= (long *) &my_randtbl[ DEG_3 + 1 ];
+static  long                *my_state                = (long *) &my_randtbl[ 1 ];
+static  int                my_rand_type                = TYPE_3;
+static  int                my_rand_deg                = DEG_3;
+static  int                my_rand_sep                = SEP_3;
+static  long                *my_end_ptr                = (long *) &my_randtbl[ DEG_3 + 1 ];
 
 /*
  * srandom:
@@ -245,29 +245,29 @@ my_initstate (unsigned seed, char *arg_state, int n)
     {
       if (n < BREAK_3)
       {
-	my_rand_type = TYPE_2;
-	my_rand_deg = DEG_2;
-	my_rand_sep = SEP_2;
+        my_rand_type = TYPE_2;
+        my_rand_deg = DEG_2;
+        my_rand_sep = SEP_2;
       }
       else
       {
-	if (n < BREAK_4)
-	{
-	  my_rand_type = TYPE_3;
-	  my_rand_deg = DEG_3;
-	  my_rand_sep = SEP_3;
-	}
-	else
-	{
-	  my_rand_type = TYPE_4;
-	  my_rand_deg = DEG_4;
-	  my_rand_sep = SEP_4;
-	}
+        if (n < BREAK_4)
+        {
+          my_rand_type = TYPE_3;
+          my_rand_deg = DEG_3;
+          my_rand_sep = SEP_3;
+        }
+        else
+        {
+          my_rand_type = TYPE_4;
+          my_rand_deg = DEG_4;
+          my_rand_sep = SEP_4;
+        }
       }
     }
   }
-  my_state = &(((long *)arg_state)[1]);	/* first location */
-  my_end_ptr = &my_state[my_rand_deg];	/* must set end_ptr before srandom */
+  my_state = &(((long *)arg_state)[1]);        /* first location */
+  my_end_ptr = &my_state[my_rand_deg];        /* must set end_ptr before srandom */
   my_srandom(seed);
   if (my_rand_type == TYPE_0)
     my_state[-1] = my_rand_type;
@@ -341,7 +341,7 @@ long
 my_random(void)
 {
   long i;
-	
+
   if (my_rand_type == TYPE_0)
   {
     i = my_state[0] = ( my_state[0]*1103515245 + 12345 )&0x7fffffff;
@@ -358,7 +358,7 @@ my_random(void)
     else
     {
       if (++my_rptr >= my_end_ptr)
-	my_rptr = my_state;
+        my_rptr = my_state;
     }
   }
   return i;

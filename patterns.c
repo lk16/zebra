@@ -4,7 +4,7 @@
    Created:       July 4, 1997
 
    Modified:      December 25, 1999
-   
+
    Author:        Gunnar Andersson (gunnar@radagast.se)
 
    Contents:      The patterns.
@@ -82,7 +82,7 @@ transformation_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if ( row[j] == 3 )
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while ( (row[j - 1] == 0) && (j < 8) );
   }
@@ -323,7 +323,7 @@ pattern_dependency( void ) {
   add_multiple( CORNER42_5, 11, 4, 10 );
   add_multiple( CORNER42_5, 12, 4, 10 );
 
-  /* Corner4x2: h1-h4 + g1-g4 */ 
+  /* Corner4x2: h1-h4 + g1-g4 */
 
   add_multiple( CORNER42_6, 18, 4, 10 );
   add_multiple( CORNER42_6, 17, 4, 10 );
@@ -344,7 +344,7 @@ pattern_dependency( void ) {
 /*
    INIT_PATTERNS
    Pre-computes some tables needed for fast pattern access.
-*/   
+*/
 
 void
 init_patterns( void ) {
@@ -391,9 +391,9 @@ compute_line_patterns( int *in_board ) {
     for ( j = 1; j <= 8; j++ ) {
       pos = 10 * i + j;
       if ( in_board[pos] == EMPTY )
-	mask = EMPTY_PATTERN;
-      else               
-	mask = color_pattern[in_board[pos]];
+        mask = EMPTY_PATTERN;
+      else
+        mask = color_pattern[in_board[pos]];
       row_pattern[row_no[pos]] += mask * pow3[row_index[pos]];
       col_pattern[col_no[pos]] += mask * pow3[col_index[pos]];
     }

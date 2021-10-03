@@ -6,7 +6,7 @@
    Modified:      November 15, 2005
 
    Author:        Gunnar Andersson (gunnar@radagast.se)
-		  Toshihiko Okuhara
+                  Toshihiko Okuhara
 
    Contents:      Routines manipulating the hash table
 
@@ -139,7 +139,7 @@ popcount( unsigned int b ) {
 
 static unsigned int
 get_closeness( unsigned int a0, unsigned int a1,
-	   unsigned int b0, unsigned int b1 ) {
+           unsigned int b0, unsigned int b1 ) {
   return abs( popcount( a0 ^ b0 ) + popcount( a1 ^ b1 ) - 32 );
 }
 
@@ -148,7 +148,7 @@ get_closeness( unsigned int a0, unsigned int a1,
 /*
    SETUP_HASH
    Determine randomized hash masks.
-*/   
+*/
 
 void
 setup_hash( int clear ) {
@@ -174,20 +174,20 @@ setup_hash( int clear ) {
 
     closeness =
       get_closeness( random_pair[rand_index][0], random_pair[rand_index][1],
-		     0, 0 );
+                     0, 0 );
     if ( closeness > max_zero_closeness )
       goto TRY_AGAIN;
     for ( i = 0; i < rand_index; i++ ) {
       closeness =
-	get_closeness( random_pair[rand_index][0], random_pair[rand_index][1],
-		       random_pair[i][0], random_pair[i][1] );
+        get_closeness( random_pair[rand_index][0], random_pair[rand_index][1],
+                       random_pair[i][0], random_pair[i][1] );
       if ( closeness > max_pair_closeness )
-	goto TRY_AGAIN;
+        goto TRY_AGAIN;
       closeness =
-	get_closeness( random_pair[rand_index][0], random_pair[rand_index][1],
-		       random_pair[i][1], random_pair[i][0] );
+        get_closeness( random_pair[rand_index][0], random_pair[rand_index][1],
+                       random_pair[i][1], random_pair[i][0] );
       if ( closeness > max_pair_closeness )
-	goto TRY_AGAIN;
+        goto TRY_AGAIN;
     }
     rand_index++;
   }
@@ -251,7 +251,7 @@ clear_hash_drafts( void ) {
 /*
    FREE_HASH
    Remove the hash table.
-*/   
+*/
 
 void
 free_hash( void ) {
@@ -266,7 +266,7 @@ free_hash( void ) {
 
 void
 determine_hash_values( int side_to_move,
-		       const int *board ) {
+                       const int *board ) {
   int i, j;
 
   hash1 = 0;
@@ -298,7 +298,7 @@ determine_hash_values( int side_to_move,
    WIDE_TO_COMPACT
    Convert the easily readable representation to the more
    compact one actually stored in the hash table.
-*/   
+*/
 
 static INLINE void
 wide_to_compact( const HashEntry *entry, CompactHashEntry *compact_entry ) {
@@ -316,7 +316,7 @@ wide_to_compact( const HashEntry *entry, CompactHashEntry *compact_entry ) {
    COMPACT_TO_WIDE
    Expand the compact internal representation of entries
    in the hash table to something more usable.
-*/   
+*/
 
 static INLINE void
 compact_to_wide( const CompactHashEntry *compact_entry, HashEntry *entry ) {
@@ -358,11 +358,11 @@ set_hash_transformation( unsigned int trans1, unsigned int trans2 ) {
 
 void
 add_hash( int reverse_mode,
-	  int score,
-	  int best,
-	  int flags,
-	  int draft,
-	  int selectivity ) {
+          int score,
+          int best,
+          int flags,
+          int draft,
+          int selectivity ) {
   int old_draft;
   int change_encouragment;
   unsigned int index, index1, index2;
@@ -389,10 +389,10 @@ add_hash( int reverse_mode,
       index = index2;
     else {
       if ( (hash_table[index1].key1_selectivity_flags_draft & DRAFT_MASK) <=
-	   (hash_table[index2].key1_selectivity_flags_draft & DRAFT_MASK) )
-	index = index1;
+           (hash_table[index2].key1_selectivity_flags_draft & DRAFT_MASK) )
+        index = index1;
       else
-	index = index2;
+        index = index2;
     }
   }
 
@@ -431,7 +431,7 @@ add_hash( int reverse_mode,
 
 void
 add_hash_extended( int reverse_mode, int score, int *best, int flags,
-		   int draft, int selectivity ) {
+                   int draft, int selectivity ) {
   int i;
   int old_draft;
   int change_encouragment;
@@ -457,10 +457,10 @@ add_hash_extended( int reverse_mode, int score, int *best, int flags,
       index = index2;
     else {
       if ( (hash_table[index1].key1_selectivity_flags_draft & DRAFT_MASK) <=
-	   (hash_table[index2].key1_selectivity_flags_draft & DRAFT_MASK) )
-	index = index1;
+           (hash_table[index2].key1_selectivity_flags_draft & DRAFT_MASK) )
+        index = index1;
       else
-	index = index2;
+        index = index2;
     }
   }
 
@@ -493,7 +493,7 @@ add_hash_extended( int reverse_mode, int score, int *best, int flags,
    FIND_HASH
    Search the hash table for the current position. The two possible
    hash table positions are probed.
-*/   
+*/
 
 void REGPARM(2)
 find_hash( HashEntry *entry, int reverse_mode ) {
@@ -518,7 +518,7 @@ find_hash( HashEntry *entry, int reverse_mode ) {
     }
   }
   else if ( (hash_table[index2].key2 == code2) &&
-	    (((hash_table[index2].key1_selectivity_flags_draft ^ code1) & KEY1_MASK) == 0) ) {
+            (((hash_table[index2].key1_selectivity_flags_draft ^ code1) & KEY1_MASK) == 0) ) {
     compact_to_wide( &hash_table[index2], entry );
     return;
   }

@@ -10,7 +10,7 @@
 #include "pcstat.h"
 
 
-Correlation mid_corr[61][MAX_SHALLOW_DEPTH + 1] = 
+Correlation mid_corr[61][MAX_SHALLOW_DEPTH + 1] =
    {{{ 0.000, 0.000, 0.000, 0.000 },
      { 1.244, -0.374, 1.778, 0.023 },
      { 0.457, -0.022, 1.245, 0.039 },
@@ -560,4 +560,3 @@ Correlation mid_corr[61][MAX_SHALLOW_DEPTH + 1] =
      { 1.297, -0.102, -0.467, 0.302 },
      { 0.433, -0.033, -0.813, 0.304 },
      { 0.967, -0.112, -0.345, 0.255 }}};
-

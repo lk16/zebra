@@ -2,7 +2,7 @@
    File:          bitboard.c
 
    Created:       November 21, 1999
-   
+
    Modified:      November 24, 2005
 
    Authors:       Gunnar Andersson (gunnar@radagast.se)
@@ -88,7 +88,7 @@ bit_reverse_32( unsigned int val ) {
 
 void
 set_bitboards( int *board, int side_to_move,
-	       BitBoard *my_out, BitBoard *opp_out ) {
+               BitBoard *my_out, BitBoard *opp_out ) {
   int i, j;
   int pos;
   unsigned int mask;
@@ -104,9 +104,9 @@ set_bitboards( int *board, int side_to_move,
     for ( j = 1; j <= 8; j++, mask <<= 1 ) {
       pos = 10 * i + j;
       if ( board[pos] == side_to_move )
-	my_bits.low |= mask;
+        my_bits.low |= mask;
       else if ( board[pos] == OPP( side_to_move ) )
-	opp_bits.low |= mask;
+        opp_bits.low |= mask;
     }
 
   mask = 1;
@@ -114,9 +114,9 @@ set_bitboards( int *board, int side_to_move,
     for ( j = 1; j <= 8; j++, mask <<= 1 ) {
       pos = 10 * i + j;
       if ( board[pos] == side_to_move )
-	my_bits.high |= mask;
+        my_bits.high |= mask;
       else if ( board[pos] == OPP( side_to_move ) )
-	opp_bits.high |= mask;
+        opp_bits.high |= mask;
     }
 
   *my_out = my_bits;
@@ -134,12 +134,12 @@ init_bitboard( void ) {
       int pos = 10 * i + j;
       unsigned shift = 8 * (i - 1) + (j - 1);
       if ( shift < 32 ) {
-	square_mask[pos].low = 1ul << shift;
-	square_mask[pos].high = 0;
+        square_mask[pos].low = 1ul << shift;
+        square_mask[pos].high = 0;
       }
       else {
-	square_mask[pos].low = 0;
-	square_mask[pos].high = 1ul << (shift - 32);
+        square_mask[pos].low = 0;
+        square_mask[pos].high = 1ul << (shift - 32);
       }
     }
 }

@@ -43,4 +43,3 @@ Copy coeffs2.bin and book.bin from the directory where WZebra is installed
 to the directory where Zebra and its tools are found.
 "./zebra -help" describes the available options.  If you find the help text
 too terse: Use the force, read the source.
-

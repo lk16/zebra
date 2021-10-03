@@ -26,15 +26,15 @@ AnyDrctnlFlips( int *sq, int inc, int color, int oppcol ) {
     if ( *pt == oppcol ) {
       pt += inc;
       if ( *pt == oppcol ) {
-	pt += inc;
-	if ( *pt == oppcol ) {
-	  pt += inc;
-	  if ( *pt == oppcol ) {
-	    pt += inc;
-	    if ( *pt == oppcol )
-	      pt += inc;
-	  }
-	}
+        pt += inc;
+        if ( *pt == oppcol ) {
+          pt += inc;
+          if ( *pt == oppcol ) {
+            pt += inc;
+            if ( *pt == oppcol )
+              pt += inc;
+          }
+        }
       }
     }
     if ( *pt == color )

@@ -31,7 +31,7 @@ static int use_experimental;
 /*
    TOGGLE_EXPERIMENTAL
    Toggles usage of novelties in the evaluation function on/off.
-*/   
+*/
 
 INLINE void
 toggle_experimental( int use ) {

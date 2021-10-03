@@ -2,7 +2,7 @@
    File:       error.c
 
    Created:    June 13, 1998
-   
+
    Modified:   November 12, 2001
 
    Author:     Gunnar Andersson (gunnar@radagast.se)
@@ -46,7 +46,7 @@ fatal_error( const char *format, ... ) {
   exit( EXIT_FAILURE );
 }
 
-#else	/* not Windows CE */
+#else        /* not Windows CE */
 
 
 void
