@@ -1,6 +1,6 @@
 # Zebra
 
-This repo started after cloning from ... on 2021/09/21
+This repo started after cloning from https://github.com/hoshir/zebra on 2021/09/21
 
 Generate book text dump:
 
