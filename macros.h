@@ -44,12 +44,12 @@ extern "C" {
 
 /* Define function attributes directive when available */
 #if __GNUC__ >= 3
-#define	REGPARM(num)	__attribute__((regparm(num)))
+#define        REGPARM(num)        __attribute__((regparm(num)))
 #else
 #if defined (_MSC_VER) || defined(__BORLANDC__)
-#define	REGPARM(num)	__fastcall
+#define        REGPARM(num)        __fastcall
 #else
-#define	REGPARM(num)
+#define        REGPARM(num)
 #endif
 #endif
 

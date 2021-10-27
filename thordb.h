@@ -2,7 +2,7 @@
    File:          thordb.h
 
    Created:       April 1, 1999
-   
+
    Modified:      August 24, 2002
 
    Author:        Gunnar Andersson (gunnar@radagast.se)
@@ -73,7 +73,7 @@ typedef struct {
 } DatabaseInfoType;
 
 typedef enum { EitherSelectedFilter, BothSelectedFilter,
-	       BlackSelectedFilter, WhiteSelectedFilter } PlayerFilterType;
+               BlackSelectedFilter, WhiteSelectedFilter } PlayerFilterType;
 
 
 
@@ -181,7 +181,7 @@ get_thor_game_move_count( int index );
 
 int
 get_thor_game_move( int index,
-		    int move_number );
+                    int move_number );
 
 
 

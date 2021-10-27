@@ -11,7 +11,7 @@
 
    Contents:      Code which conservatively estimates the number of
                   stable (unflippable) discs using the concept
-		  "Zardoz stability" along with edge tables.
+                  "Zardoz stability" along with edge tables.
 
    This piece of software is released under the GPL.
    See the file COPYING for more information.
@@ -80,11 +80,11 @@ MoveLink stab_move_list[100];
 #if 0
 INLINE static void
 apply_64( BitBoard *target,
-	  BitBoard base,
-	  unsigned int hi_mask,
-	  unsigned int lo_mask ) {
+          BitBoard base,
+          unsigned int hi_mask,
+          unsigned int lo_mask ) {
   unsigned int cond_mask = (unsigned int) -(((~base.high & hi_mask) | (~base.low & lo_mask)) == 0);
-	/* All 1 if all of hi/lo mask bits are set */
+        /* All 1 if all of hi/lo mask bits are set */
   target->high |= hi_mask & cond_mask;
   target->low |= lo_mask & cond_mask;
 }
@@ -92,9 +92,9 @@ apply_64( BitBoard *target,
 
 INLINE static void
 and_line_shift_64( BitBoard *target,
-	           BitBoard base,
-	           int shift,
-	           BitBoard dir_ss ) {
+                   BitBoard base,
+                   int shift,
+                   BitBoard dir_ss ) {
   /* Shift to the left */
   dir_ss.high |= (base.high << shift) | (base.low >> (32 - shift));
   dir_ss.low |= base.low << shift;
@@ -115,8 +115,8 @@ and_line_shift_64( BitBoard *target,
 
 INLINE static void
 edge_zardoz_stable( BitBoard *ss,
-		    BitBoard dd,
-		    BitBoard od ) {
+                    BitBoard dd,
+                    BitBoard od ) {
 /* dd is the disks of the side we are looking for stable disks for
    od is the opponent
    ss are the stable disks */
@@ -129,7 +129,7 @@ edge_zardoz_stable( BitBoard *ss,
    stable disks have stopped increasing.
 
    fb is the squares which have been played
-   ie either by white or black 
+   ie either by white or black
 
    udf are the up-down columns that are filled, and so no vertical flips
    lrf are the left-right
@@ -163,12 +163,12 @@ edge_zardoz_stable( BitBoard *ss,
   daf.high = 0xFF818181;
   daf.low = 0x818181FF;
   t = ((((fb.high << 4) | 0x0F0F0F0F) & fb.low) | 0xE0C08000) & 0x1FFFFFFE;
-  t &= (t >> 14) | (t << 14);	/* rotate within bit 1 and bit 28 */
+  t &= (t >> 14) | (t << 14);        /* rotate within bit 1 and bit 28 */
   t &= (t >> 7) | (t << 21);
   daf.low |= t & 0x1F3F7EFC;
   daf.high |= (t >> 4) & 0x0103070F;
   t = ((((fb.low >> 4) | 0xF0F0F0F0) & fb.high) | 0x00010307) & 0x7FFFFFF8;
-  t &= (t >> 14) | (t << 14);	/* rotate within bit 3 and bit 30 */
+  t &= (t >> 14) | (t << 14);        /* rotate within bit 3 and bit 30 */
   t &= (t >> 7) | (t << 21);
   daf.high |= t & 0x3E7CF8F0;
   daf.low |= (t << 4) & 0xE0C08000;
@@ -176,10 +176,10 @@ edge_zardoz_stable( BitBoard *ss,
   dbf.high = 0xFF818181;
   dbf.low = 0x818181FF;
   t = ((fb.high >> 4) | 0xF0F0F0F0) & fb.low;
-				/* 17 16 15 14 13 12 11 10  9  8 NG  6  5  4  3  2  1  0 */
-  t &= (t >> 18) | 0x0003C000;	/*  *  *  *  * 31 30 29 28 27 26 25 NG 23 22 21 20 19 18 */
-  t &= (t >> 9) | (t << 9);	/*  8 NG  6  5  4  3  2  1  0 17 16 15 14 13 12 11 10  9 */
-  t |= (t << 18);		/* 26 25 NG 23 22 21 20 19 18  *  *  *  * 31 30 29 28 27 */
+                                /* 17 16 15 14 13 12 11 10  9  8 NG  6  5  4  3  2  1  0 */
+  t &= (t >> 18) | 0x0003C000;        /*  *  *  *  * 31 30 29 28 27 26 25 NG 23 22 21 20 19 18 */
+  t &= (t >> 9) | (t << 9);        /*  8 NG  6  5  4  3  2  1  0 17 16 15 14 13 12 11 10  9 */
+  t |= (t << 18);                /* 26 25 NG 23 22 21 20 19 18  *  *  *  * 31 30 29 28 27 */
   dbf.low |= t & 0xF8FC7E3F;
   dbf.high |= (t << 4) & 0x80C0E0F0;
   t = ((fb.low << 4) | 0x0F0F0F0F) & fb.high;
@@ -206,7 +206,7 @@ edge_zardoz_stable( BitBoard *ss,
 
     ss->high = ost.high | (expand_ss.high & dd.high);
     ss->low = ost.low | (expand_ss.low & dd.low);
-  } while ( (ost.high ^ ss->high) | (ost.low ^ ss->low) );	/* changing */
+  } while ( (ost.high ^ ss->high) | (ost.low ^ ss->low) );        /* changing */
 
   // ss->high &= dd.high;
   // ss->low &= dd.low;
@@ -223,8 +223,8 @@ edge_zardoz_stable( BitBoard *ss,
 
 int
 count_edge_stable( int color,
-		   BitBoard col_bits,
-		   BitBoard opp_bits ) {
+                   BitBoard col_bits,
+                   BitBoard opp_bits ) {
   unsigned int col_mask, opp_mask, ix_a1a8, ix_h1h8, ix_a1h1, ix_a8h8;
 
   col_mask = (((col_bits.low & 0x01010101) + ((col_bits.high & 0x01010101) << 4)) * 0x01020408) >> 24;
@@ -271,8 +271,8 @@ count_edge_stable( int color,
 
 int
 count_stable( int color,
-	      BitBoard col_bits,
-	      BitBoard opp_bits ) {
+              BitBoard col_bits,
+              BitBoard opp_bits ) {
   unsigned int t;
   BitBoard col_stable;
   BitBoard common_stable;
@@ -318,12 +318,12 @@ count_stable( int color,
 
 static void
 stability_search( BitBoard my_bits,
-		  BitBoard opp_bits,
-		  int side_to_move,
-		  BitBoard *candidate_bits,
-		  int max_depth,
-		  int last_was_pass,
-		  int *stability_nodes ) {
+                  BitBoard opp_bits,
+                  int side_to_move,
+                  BitBoard *candidate_bits,
+                  int max_depth,
+                  int last_was_pass,
+                  int *stability_nodes ) {
   int sq, old_sq;
   int mobility;
   BitBoard black_bits, white_bits;
@@ -346,35 +346,35 @@ stability_search( BitBoard my_bits,
     CLEAR( all_stable_bits );
     (void) count_edge_stable( BLACKSQ, black_bits, white_bits );
     if ( (candidate_bits->high & black_bits.high) ||
-	 (candidate_bits->low  & black_bits.low ) ) {
+         (candidate_bits->low  & black_bits.low ) ) {
       (void) count_stable( BLACKSQ, black_bits, white_bits );
       APPLY_OR( all_stable_bits, last_black_stable );
     }
     if ( (candidate_bits->high & white_bits.high) ||
-	 (candidate_bits->low  & white_bits.low ) ) {
+         (candidate_bits->low  & white_bits.low ) ) {
       (void) count_stable( WHITESQ, white_bits, black_bits );
       APPLY_OR( all_stable_bits, last_white_stable );
     }
     if ( ((candidate_bits->high & ~all_stable_bits.high) == 0) &&
-	 ((candidate_bits->low  & ~all_stable_bits.low ) == 0) )
+         ((candidate_bits->low  & ~all_stable_bits.low ) == 0) )
       return;
   }
 
   mobility = 0;
   for ( old_sq = END_MOVE_LIST_HEAD, sq = stab_move_list[old_sq].succ;
-	sq != END_MOVE_LIST_TAIL;
-	old_sq = sq, sq = stab_move_list[sq].succ ) {
+        sq != END_MOVE_LIST_TAIL;
+        old_sq = sq, sq = stab_move_list[sq].succ ) {
     if ( TestFlips_bitboard[sq - 11]( my_bits.high, my_bits.low, opp_bits.high, opp_bits.low ) ) {
       new_my_bits = bb_flips;
       APPLY_ANDNOT( bb_flips, my_bits );
       APPLY_ANDNOT( (*candidate_bits), bb_flips );
       if ( max_depth > 1 ) {
         FULL_ANDNOT( new_opp_bits, opp_bits, bb_flips );
-	stab_move_list[old_sq].succ = stab_move_list[sq].succ;
-	stability_search( new_opp_bits, new_my_bits, OPP( side_to_move ),
-			  candidate_bits, max_depth - 1, FALSE,
-			  stability_nodes );
-	stab_move_list[old_sq].succ = sq;
+        stab_move_list[old_sq].succ = stab_move_list[sq].succ;
+        stability_search( new_opp_bits, new_my_bits, OPP( side_to_move ),
+                          candidate_bits, max_depth - 1, FALSE,
+                          stability_nodes );
+        stab_move_list[old_sq].succ = sq;
       }
       mobility++;
     }
@@ -382,7 +382,7 @@ stability_search( BitBoard my_bits,
 
   if ( (mobility == 0) && !last_was_pass )
     stability_search( opp_bits, my_bits, OPP( side_to_move ),
-		      candidate_bits, max_depth, TRUE, stability_nodes );
+                      candidate_bits, max_depth, TRUE, stability_nodes );
 }
 
 
@@ -395,8 +395,8 @@ stability_search( BitBoard my_bits,
 
 static void
 complete_stability_search( int *board,
-			   int side_to_move,
-			   BitBoard *stable_bits ) {
+                           int side_to_move,
+                           BitBoard *stable_bits ) {
   int i, j;
   int empties;
   int shallow_depth;
@@ -423,7 +423,7 @@ complete_stability_search( int *board,
   for ( i = 1; i <= 8; i++ )
     for ( j = 1; j <= 8; j++ )
       if ( board[10 * i + j] == EMPTY )
-	empties++;
+        empties++;
 
   /* Prepare the bitmaps for the stability search */
 
@@ -439,7 +439,7 @@ complete_stability_search( int *board,
   stability_nodes = 0;
   shallow_depth = 4;
   stability_search( my_bits, opp_bits, side_to_move, &candidate_bits,
-		    MIN( empties, shallow_depth ), FALSE, &stability_nodes );
+                    MIN( empties, shallow_depth ), FALSE, &stability_nodes );
 
   /* Scan through the rest of the discs one at a time until the
      maximum number of stability nodes is exceeded. Hopefully
@@ -451,16 +451,16 @@ complete_stability_search( int *board,
       int sq = 10 * i + j;
       test_bits = square_mask[sq];
       if ( (test_bits.high & candidate_bits.high) |
-	   (test_bits.low  & candidate_bits.low ) ) {
-	stability_search( my_bits, opp_bits, side_to_move, &test_bits,
-			  empties, FALSE, &stability_nodes );
-	abort = (stability_nodes > MAX_STABILITY_NODES);
-	if ( !abort ) {
-	  if ( test_bits.high | test_bits.low ) {
-	    stable_bits->high |= test_bits.high;
-	    stable_bits->low  |= test_bits.low;
-	  }
-	}
+           (test_bits.low  & candidate_bits.low ) ) {
+        stability_search( my_bits, opp_bits, side_to_move, &test_bits,
+                          empties, FALSE, &stability_nodes );
+        abort = (stability_nodes > MAX_STABILITY_NODES);
+        if ( !abort ) {
+          if ( test_bits.high | test_bits.low ) {
+            stable_bits->high |= test_bits.high;
+            stable_bits->low  |= test_bits.low;
+          }
+        }
       }
     }
 }
@@ -476,8 +476,8 @@ complete_stability_search( int *board,
 
 void
 get_stable( int *board,
-	    int side_to_move,
-	    int *is_stable ) {
+            int side_to_move,
+            int *is_stable ) {
   int i, j;
   unsigned int mask;
   BitBoard black_bits, white_bits, all_stable;
@@ -491,7 +491,7 @@ get_stable( int *board,
        ((white_bits.high | white_bits.low) == 0) )
     for ( i = 1; i <= 8; i++ )
       for ( j = 1; j <= 8; j++ )
-	is_stable[10 * i + j] = TRUE;
+        is_stable[10 * i + j] = TRUE;
   else {  /* Nobody wiped out */
     (void) count_edge_stable( BLACKSQ, black_bits, white_bits );
     (void) count_stable( BLACKSQ, black_bits, white_bits );
@@ -503,12 +503,12 @@ get_stable( int *board,
 
     for ( i = 1, mask = 1; i <= 4; i++ )
       for ( j = 1; j <= 8; j++, mask <<= 1 )
-	if ( all_stable.low & mask )
-	  is_stable[10 * i + j] = TRUE;
+        if ( all_stable.low & mask )
+          is_stable[10 * i + j] = TRUE;
     for ( i = 5, mask = 1; i <= 8; i++ )
       for ( j = 1; j <= 8; j++, mask <<= 1 )
-	if ( all_stable.high & mask )
-	  is_stable[10 * i + j] = TRUE;
+        if ( all_stable.high & mask )
+          is_stable[10 * i + j] = TRUE;
   }
 }
 
@@ -533,21 +533,21 @@ display_row( int pattern ) {
       break;
     case BLACKSQ:
       if ( mask & (1 << i) )
-	putchar( 'X' );
+        putchar( 'X' );
       else
-	putchar( 'x' );
+        putchar( 'x' );
       break;
     case WHITESQ:
       if ( mask & (1 << i) )
-	putchar( 'O' );
+        putchar( 'O' );
       else
-	putchar( 'o' );
+        putchar( 'o' );
     }
     temp /= 3;
   }
 #ifdef TEXT_BASED
   printf( "     pattern %4d   black %2d   white %2d\n", pattern,
-	  black_stable[pattern], white_stable[pattern] );
+          black_stable[pattern], white_stable[pattern] );
 #endif
 }
 #endif
@@ -602,61 +602,61 @@ recursive_find_stable( int pattern ) {
 
       row[i] = BLACKSQ;
       if ( i >= 2 ) {
-	j = i - 1;
-	while ( (j >= 1) && (row[j] == WHITESQ) )
-	  j--;
-	if ( row[j] == BLACKSQ )
-	  for ( j++; j < i; j++ ) {
-	    row[j] = BLACKSQ;
-	    stable &= ~(1 << j);
-	  }
+        j = i - 1;
+        while ( (j >= 1) && (row[j] == WHITESQ) )
+          j--;
+        if ( row[j] == BLACKSQ )
+          for ( j++; j < i; j++ ) {
+            row[j] = BLACKSQ;
+            stable &= ~(1 << j);
+          }
       }
       if ( i <= 5 ) {
-	j = i + 1;
-	while ( (j <= 6) && (row[j] == WHITESQ) )
-	  j++;
-	if ( row[j] == BLACKSQ )
-	  for ( j--; j > i; j-- ) {
-	    row[j] = BLACKSQ;
-	    stable &= ~(1 << j);
-	  }
+        j = i + 1;
+        while ( (j <= 6) && (row[j] == WHITESQ) )
+          j++;
+        if ( row[j] == BLACKSQ )
+          for ( j--; j > i; j-- ) {
+            row[j] = BLACKSQ;
+            stable &= ~(1 << j);
+          }
       }
       new_pattern = 0;
       for ( j = 0; j < 8; j++ )
-	new_pattern += pow3[j] * row[j];
+        new_pattern += pow3[j] * row[j];
       stable &= recursive_find_stable( new_pattern );
 
       /* Restore position */
 
       for ( j = 0; j < 8; j++ )
-	row[j] = stored_row[j];
+        row[j] = stored_row[j];
 
       /* Play out a white move */
 
       row[i] = WHITESQ;
       if ( i >= 2 ) {
-	j = i - 1;
-	while ( (j >= 1) && (row[j] == BLACKSQ) )
-	  j--;
-	if ( row[j] == WHITESQ )
-	  for ( j++; j < i; j++ ) {
-	    row[j] = WHITESQ;
-	    stable &= ~(1 << j);
-	  }
+        j = i - 1;
+        while ( (j >= 1) && (row[j] == BLACKSQ) )
+          j--;
+        if ( row[j] == WHITESQ )
+          for ( j++; j < i; j++ ) {
+            row[j] = WHITESQ;
+            stable &= ~(1 << j);
+          }
       }
       if ( i <= 5 ) {
-	j = i + 1;
-	while ( (j <= 6) && (row[j] == BLACKSQ) )
-	  j++;
-	if ( row[j] == WHITESQ )
-	  for ( j--; j > i; j-- ) {
-	    row[j] = WHITESQ;
-	    stable &= ~(1 << j);
-	  }
+        j = i + 1;
+        while ( (j <= 6) && (row[j] == BLACKSQ) )
+          j++;
+        if ( row[j] == WHITESQ )
+          for ( j--; j > i; j-- ) {
+            row[j] = WHITESQ;
+            stable &= ~(1 << j);
+          }
       }
       new_pattern = 0;
       for ( j = 0; j < 8; j++ )
-	new_pattern += pow3[j] * row[j];
+        new_pattern += pow3[j] * row[j];
       stable &= recursive_find_stable( new_pattern );
     }
   }
@@ -695,12 +695,12 @@ count_color_stable( void ) {
     white_stable[pattern] = 0;
     for ( j = 0; j < 8; j++ )
       if ( edge_stable[pattern] & (1 << j) ) {
-	if ( row[j] == BLACKSQ ) {
-	  black_stable[pattern] += stable_incr[j];
-	}
-	else if ( row[j] == WHITESQ ) {
-	  white_stable[pattern] += stable_incr[j];
-	}
+        if ( row[j] == BLACKSQ ) {
+          black_stable[pattern] += stable_incr[j];
+        }
+        else if ( row[j] == WHITESQ ) {
+          white_stable[pattern] += stable_incr[j];
+        }
       }
 
     /* Next configuration */
@@ -708,7 +708,7 @@ count_color_stable( void ) {
     do {  /* The odometer principle */
       row[i]++;
       if (row[i] == 3)
-	row[i] = 0;
+        row[i] = 0;
       i++;
     } while ( (row[i - 1] == 0) && (i < 8) );
   }
@@ -730,7 +730,7 @@ init_stable( void ) {
     base_conversion[i] = 0;
     for ( j = 0; j < 8; j++ )
       if ( i & (1 << j) )
-	base_conversion[i] += pow3[j];
+        base_conversion[i] += pow3[j];
   }
 
   for ( i = 0; i < 6561; i++ )

@@ -2,7 +2,7 @@
    File:       learn.c
 
    Created:    November 29, 1999
-   
+
    Modified:   April 29, 2002
 
    Author:     Gunnar Andersson (gunnar@radagast.se)
@@ -159,7 +159,7 @@ learn_game( int game_length, int private_game, int save_database ) {
 
   set_search_depth( learn_depth );
   add_new_game( game_length, game_move, cutoff_empty, full_solve,
-		wld_solve, TRUE, private_game );
+                wld_solve, TRUE, private_game );
 
   if ( save_database ) {
     if ( binary_database )
@@ -181,7 +181,7 @@ learn_game( int game_length, int private_game, int save_database ) {
 
 void
 full_learn_public_game( int length, int *moves, int cutoff,
-			int deviation_depth, int exact, int wld ) {
+                        int deviation_depth, int exact, int wld ) {
   int i;
   int dummy;
   int side_to_move;

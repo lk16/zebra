@@ -44,7 +44,7 @@ CounterType evaluations, total_evaluations;
 /* When no other information is available, JCW's endgame
    priority order is used also in the midgame. */
 int position_list[100] = {
-  /*A1*/        11 , 18 , 81 , 88 , 
+  /*A1*/        11 , 18 , 81 , 88 ,
   /*C1*/        13 , 16 , 31 , 38 , 61 , 68 , 83 , 86 ,
   /*C3*/        33 , 36 , 63 , 66 ,
   /*D1*/        14 , 15 , 41 , 48 , 51 , 58 , 84 , 85 ,
@@ -160,7 +160,7 @@ reorder_move_list( int stage ) {
 /*
    SETUP_SEARCH
    Initialize the history of the game in the search driver.
-*/   
+*/
 
 void
 setup_search( void ) {
@@ -185,7 +185,7 @@ disc_count( int side_to_move ) {
   for ( i = 1; i <= 8; i++ )
     for ( j = 10 * i + 1; j <= 10 * i + 8; j++ )
       if ( board[j] == side_to_move )
-	sum++;
+        sum++;
 
   return sum;
 }
@@ -196,7 +196,7 @@ disc_count( int side_to_move ) {
    SORT_MOVES
    Sort the available in decreasing order based on the results
    from a shallow search.
-*/   
+*/
 
 INLINE void
 sort_moves( int list_size ) {
@@ -208,11 +208,11 @@ sort_moves( int list_size ) {
     modified = FALSE;
     for ( i = 0; i < list_size - 1; i++ )
       if ( evals[disks_played][move_list[disks_played][i]] <
-	   evals[disks_played][move_list[disks_played][i + 1]] ) {
-	modified = TRUE;
-	temp_move = move_list[disks_played][i];
-	move_list[disks_played][i] = move_list[disks_played][i + 1];
-	move_list[disks_played][i + 1] = temp_move;
+           evals[disks_played][move_list[disks_played][i + 1]] ) {
+        modified = TRUE;
+        temp_move = move_list[disks_played][i];
+        move_list[disks_played][i] = move_list[disks_played][i + 1];
+        move_list[disks_played][i + 1] = temp_move;
       }
   } while ( modified );
 }
@@ -254,7 +254,7 @@ select_move( int first, int list_size ) {
   "Float" a move which is believed to be good to the top
   of the list of available moves.
   Return 1 if the move was found, 0 otherwise.
-*/    
+*/
 
 INLINE int
 float_move( int move, int list_size ) {
@@ -263,7 +263,7 @@ float_move( int move, int list_size ) {
   for ( i = 0; i < list_size; i++ )
     if ( move_list[disks_played][i] == move ) {
       for ( j = i; j >= 1; j-- )
-	move_list[disks_played][j] = move_list[disks_played][j - 1];
+        move_list[disks_played][j] = move_list[disks_played][j - 1];
       move_list[disks_played][0] = move;
       return TRUE;
     }
@@ -275,7 +275,7 @@ float_move( int move, int list_size ) {
 /*
    STORE_PV
    Saves the principal variation (the first row of the PV matrix).
-*/   
+*/
 
 void
 store_pv( int *pv_buffer, int *depth_buffer ) {
@@ -291,7 +291,7 @@ store_pv( int *pv_buffer, int *depth_buffer ) {
 /*
    RESTORE_PV
    Put the stored principal variation back into the PV matrix.
-*/   
+*/
 
 void
 restore_pv( int *pv_buffer, int depth_buffer ) {
@@ -338,21 +338,21 @@ complete_pv( int side_to_move ) {
       full_pv_depth++;
       side_to_move = OPP( side_to_move );
       if ( make_move( side_to_move, pv[0][i], TRUE ) ) {
-	actual_side_to_move[i] = side_to_move;
-	full_pv[full_pv_depth] = pv[0][i];
-	full_pv_depth++;
+        actual_side_to_move[i] = side_to_move;
+        full_pv[full_pv_depth] = pv[0][i];
+        full_pv_depth++;
       }
       else {
 #ifdef TEXT_BASED
-	int j;
+        int j;
 
-	printf( "pv_depth[0] = %d\n", pv_depth[0] );
-	for ( j = 0; j < pv_depth[0]; j++ )
-	  printf( "%c%c ", TO_SQUARE( pv[0][j] ) );
-	puts( "" );
-	printf( "i=%d\n", i );
+        printf( "pv_depth[0] = %d\n", pv_depth[0] );
+        for ( j = 0; j < pv_depth[0]; j++ )
+          printf( "%c%c ", TO_SQUARE( pv[0][j] ) );
+        puts( "" );
+        printf( "i=%d\n", i );
 #endif
-	fatal_error( PV_ERROR );
+        fatal_error( PV_ERROR );
       }
     }
     side_to_move = OPP( side_to_move );
@@ -370,9 +370,9 @@ complete_pv( int side_to_move ) {
 
 void
 hash_expand_pv( int side_to_move,
-		int mode,
-		int flags,
-		int max_selectivity ) {
+                int mode,
+                int flags,
+                int max_selectivity ) {
   int i;
   int pass_count;
   int new_pv_depth;
@@ -388,32 +388,32 @@ hash_expand_pv( int side_to_move,
     new_side_to_move[new_pv_depth] = side_to_move;
     if ( (new_pv_depth < pv_depth[0]) && (new_pv_depth == 0) ) {
       if ( (board[pv[0][new_pv_depth]] == EMPTY) &&
-	   make_move( side_to_move, pv[0][new_pv_depth], TRUE ) ) {
-	new_pv[new_pv_depth] = pv[0][new_pv_depth];
-	new_pv_depth++;
-	pass_count = 0;
+           make_move( side_to_move, pv[0][new_pv_depth], TRUE ) ) {
+        new_pv[new_pv_depth] = pv[0][new_pv_depth];
+        new_pv_depth++;
+        pass_count = 0;
       }
       else {
-	hash1 ^= hash_flip_color1;
-	hash2 ^= hash_flip_color2;
-	pass_count++;
+        hash1 ^= hash_flip_color1;
+        hash2 ^= hash_flip_color2;
+        pass_count++;
       }
     }
     else {
       find_hash( &entry, mode );
       if ( (entry.draft != NO_HASH_MOVE) &&
-	   (entry.flags & flags) &&
-	   (entry.selectivity <= max_selectivity) &&
-	   (board[entry.move[0]] == EMPTY) &&
-	   make_move( side_to_move, entry.move[0], TRUE ) ) {
-	new_pv[new_pv_depth] = entry.move[0];
-	new_pv_depth++;
-	pass_count = 0;
+           (entry.flags & flags) &&
+           (entry.selectivity <= max_selectivity) &&
+           (board[entry.move[0]] == EMPTY) &&
+           make_move( side_to_move, entry.move[0], TRUE ) ) {
+        new_pv[new_pv_depth] = entry.move[0];
+        new_pv_depth++;
+        pass_count = 0;
       }
       else {
-	hash1 ^= hash_flip_color1;
-	hash2 ^= hash_flip_color2;
-	pass_count++;
+        hash1 ^= hash_flip_color1;
+        hash2 ^= hash_flip_color2;
+        pass_count++;
       }
     }
     side_to_move = OPP( side_to_move );
@@ -461,8 +461,8 @@ get_ponder_move( void ) {
 
 EvaluationType
 create_eval_info( EvalType in_type, EvalResult in_res,
-		  int in_score, double in_conf,
-		  int in_depth, int in_book ) {
+                  int in_score, double in_conf,
+                  int in_depth, int in_book ) {
   EvaluationType out;
 
   out.type = in_type;
@@ -503,16 +503,16 @@ produce_compact_eval( EvaluationType eval_info ) {
     switch ( eval_info.res ) {
     case WON_POSITION:
       if ( eval_info.score > 2 * 128 )  /* Win by more than 2 */
-	return (eval_info.score / 128.0) - 0.01;
+        return (eval_info.score / 128.0) - 0.01;
       else
-	return 1.99;
+        return 1.99;
     case DRAWN_POSITION:
       return 0.0;
     case LOST_POSITION:
       if ( eval_info.score < -2 * 128 )  /* Loss by more than 2 */
-	return (eval_info.score / 128.0) + 0.01;
+        return (eval_info.score / 128.0) + 0.01;
       else
-	return -1.99;
+        return -1.99;
     case UNSOLVED_POSITION:
       return 0.0;
     }

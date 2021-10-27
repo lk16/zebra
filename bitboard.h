@@ -2,7 +2,7 @@
    File:          bitboard.h
 
    Created:       November 21, 1999
-   
+
    Modified:      November 24, 2005
 
    Author:        Gunnar Andersson (gunnar@radagast.se)
@@ -67,7 +67,7 @@
 #define CLEAR( a ) { \
   a.high = 0; \
   a.low = 0; \
-} 
+}
 
 
 
@@ -91,7 +91,7 @@ bit_reverse_32( unsigned int val );
 
 void
 set_bitboards( int *board, int side_to_move,
-	       BitBoard *my_out, BitBoard *opp_out );
+               BitBoard *my_out, BitBoard *opp_out );
 
 void
 init_bitboard( void );

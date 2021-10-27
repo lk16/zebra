@@ -2,7 +2,7 @@
    File:           unflip.c
 
    Created:        February 26, 1999
-   
+
    Modified:       July 12, 1999
 
    Author:         Gunnar Andersson (gunnar@radagast.se)

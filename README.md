@@ -2,25 +2,22 @@
 
 This repo started after cloning from https://github.com/hoshir/zebra on 2021/09/21
 
-Generate book text dump:
+This repo contains a few minor tweaks:
+- `-evalone` flag: evaluates one move and exits
+- `-quiet` flag: outputs evaluation and nothing else
+
+Example of their uses:
 
 ```sh
-./booktool -rb book.bin -w dump.txt
+./zebra -quiet -l 18 26 28 18 26 28 -slack 0 -evalone -seq 'e6f4g3d6c4'
 ```
 
+This command outputs the following on my machine.
 
-Zebra
-=====
-
-Othello program created by Gunnar Andersson
-
-This repository has started by uploading original code, as of 2014/04/29, by Gunnar Andersson
-
-## Web sites
-
-* Gunner's website: http://radagast.se/othello/
-* Original source code: http://radagast.se/othello/zebra.tar.gz
-
+```
+-->  18  +9.37        1556481  f6 f7 d3 c5 f5     0.6 s  2526993 nps
+PV: f6 f7 d3 c5 f5 f3 d7 e7 c6 e3 b4 c3 b3 b5 g4 a5 d8
+```
 
 ## README (ORIGINAL)
 ----- LICENSE -----
@@ -43,4 +40,3 @@ Copy coeffs2.bin and book.bin from the directory where WZebra is installed
 to the directory where Zebra and its tools are found.
 "./zebra -help" describes the available options.  If you find the help text
 too terse: Use the force, read the source.
-

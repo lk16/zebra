@@ -2,7 +2,7 @@
    File:           scrzebra.c
 
    Created:        November 17, 2001
-   
+
    Modified:
 
    Author:         Gunnar Andersson (gunnar@radagast.se)
@@ -17,4 +17,3 @@
 
 
 #include "zebra.c"
-

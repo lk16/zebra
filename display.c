@@ -125,7 +125,7 @@ set_move_list( int *black, int *white, int row ) {
 
 void
 display_board( FILE *stream, int *board, int side_to_move,
-	       int give_game_score, int give_time, int give_evals ) {
+               int give_game_score, int give_time, int give_evals ) {
   char buffer[16];
   int i, j;
   int written;
@@ -142,7 +142,7 @@ display_board( FILE *stream, int *board, int side_to_move,
     first_row = MAX( 0, current_row - 8 );
   else
     first_row = MAX( 0, current_row - 7 );
-   
+
   buffer[15] = 0;
   fputs( "\n", stream );
   fprintf( stream, "%s   a b c d e f g h\n", MARGIN );
@@ -153,14 +153,14 @@ display_board( FILE *stream, int *board, int side_to_move,
     for ( j = 1; j <= 8; j++ ) {
       switch ( board[10 * i + j] ) {
       case BLACKSQ:
-	buffer[2 * (j - 1)] = '*';
-	break;
+        buffer[2 * (j - 1)] = '*';
+        break;
       case WHITESQ:
-	buffer[2 * (j - 1)] = 'O';
-	break;
+        buffer[2 * (j - 1)] = 'O';
+        break;
       default:
-	buffer[2 * (j - 1)] = ' ';
-	break;
+        buffer[2 * (j - 1)] = ' ';
+        break;
       }
     }
     fprintf( stream, "%s%d  %s      ", MARGIN, i, buffer );
@@ -168,65 +168,65 @@ display_board( FILE *stream, int *board, int side_to_move,
     if ( i == 1 ) {
       written += fprintf( stream, "%-9s", BLACK_TEXT );
       if ( black_player != NULL )
-	written += fprintf( stream, "%s", black_player );
+        written += fprintf( stream, "%s", black_player );
     }
     if ( (i == 2) && give_time )
       written += fprintf( stream, "         %02d:%02d",
-			  black_time / 60, black_time % 60 );
+                          black_time / 60, black_time % 60 );
     if ( i == 3 ) {
       if ( side_to_move == BLACKSQ )
-	written += fprintf( stream, " (*)  " );
+        written += fprintf( stream, " (*)  " );
       else if ( give_evals && (black_eval != 0.0) ) {
-	if ( (black_eval >= 0.0) && (black_eval <= 1.0) )
-	  written += fprintf( stream, "%-6.2f", black_eval );
+        if ( (black_eval >= 0.0) && (black_eval <= 1.0) )
+          written += fprintf( stream, "%-6.2f", black_eval );
         else
-	  written += fprintf( stream, "%+-6.2f", black_eval );
+          written += fprintf( stream, "%+-6.2f", black_eval );
       }
       else
-	written += fprintf( stream, "      " );
+        written += fprintf( stream, "      " );
       written += fprintf( stream, "   %d %s", disc_count( BLACKSQ ),
-			  DISCS_TEXT);
+                          DISCS_TEXT);
     }
     if ( i == 5 ) {
       written += fprintf( stream, "%-9s", WHITE_TEXT );
       if ( white_player != NULL )
-	written += fprintf( stream, "%s", white_player );
+        written += fprintf( stream, "%s", white_player );
     }
     if ( (i == 6) && give_time )
       written += fprintf( stream, "         %02d:%02d",
-			  white_time / 60, white_time % 60 );
+                          white_time / 60, white_time % 60 );
     if ( i == 7 ) {
       if ( side_to_move == WHITESQ )
-	written += fprintf( stream, " (O)  " );
+        written += fprintf( stream, " (O)  " );
       else if ( give_evals && (white_eval != 0.0) ) {
-	if ( (white_eval >= 0.0) && (white_eval <= 1.0) )
-	  written += fprintf( stream, "%-6.2f", white_eval );
+        if ( (white_eval >= 0.0) && (white_eval <= 1.0) )
+          written += fprintf( stream, "%-6.2f", white_eval );
         else
-	  written += fprintf( stream, "%+-6.2f", white_eval );
+          written += fprintf( stream, "%+-6.2f", white_eval );
       }
       else
-	written += fprintf( stream, "      " );
+        written += fprintf( stream, "      " );
       written += fprintf( stream, "   %d %s", disc_count( WHITESQ ),
-			  DISCS_TEXT);
+                          DISCS_TEXT);
     }
     if ( give_game_score ) {
       fprintf( stream, "%*s", SPACING - written, "" );
       row = first_row + (i - 1);
       if ( (row < current_row) ||
-	   ((row == current_row) && (side_to_move == WHITESQ)) ) {
-	fprintf( stream, "%2d. ", row + 1 );
-	if ( black_moves[row] == PASS )
-	  fprintf( stream, "- " );
-	else
-	  fprintf( stream, "%c%c", TO_SQUARE( black_moves[row] ) );
-	fprintf( stream, "  " );
-	if ( (row < current_row) ||
-	     ((row == current_row) && (side_to_move == BLACKSQ)) ) {
-	  if ( white_moves[row] == PASS )
-	    fprintf( stream, "- " );
-	  else
-	    fprintf( stream, "%c%c", TO_SQUARE( white_moves[row] ) );
-	}
+           ((row == current_row) && (side_to_move == WHITESQ)) ) {
+        fprintf( stream, "%2d. ", row + 1 );
+        if ( black_moves[row] == PASS )
+          fprintf( stream, "- " );
+        else
+          fprintf( stream, "%c%c", TO_SQUARE( black_moves[row] ) );
+        fprintf( stream, "  " );
+        if ( (row < current_row) ||
+             ((row == current_row) && (side_to_move == BLACKSQ)) ) {
+          if ( white_moves[row] == PASS )
+            fprintf( stream, "- " );
+          else
+            fprintf( stream, "%c%c", TO_SQUARE( white_moves[row] ) );
+        }
       }
     }
     fputs( "\n", stream );
@@ -271,7 +271,7 @@ display_optimal_line( FILE *stream ) {
       fputc( ' ', stream );
     else
       if ( i > 0 )
-	fprintf( stream, "\n    " );
+        fprintf( stream, "\n    " );
     display_move( stream, full_pv[i] );
   }
   fputs( "\n", stream );
@@ -329,9 +329,9 @@ send_status_nodes( double node_count ) {
       send_status( "%7.0f%c  ", node_count / 1000.0, KILO_ABBREV );
     else {
       if ( node_count < 1.0e13 )
-	send_status( "%7.0f%c  ", node_count / 1000000.0, MEGA_ABBREV );
+        send_status( "%7.0f%c  ", node_count / 1000000.0, MEGA_ABBREV );
       else
-	send_status( "%7.0f%c  ", node_count / 1000000000.0, GIGA_ABBREV );
+        send_status( "%7.0f%c  ", node_count / 1000000000.0, GIGA_ABBREV );
     }
   }
 }
@@ -474,7 +474,7 @@ display_buffers( void ) {
     status_modified = FALSE;
     if ( timer - last_output >= interval2 ) {
       if ( sweep_modified )
-	display_sweep( stdout );
+        display_sweep( stdout );
       last_output = timer;
       /* Display the sweep at Fibonacci-spaced times */
       new_interval = interval1 + interval2;
@@ -492,7 +492,7 @@ display_buffers( void ) {
   displays everything that is fed to the buffer.
 */
 
-void 
+void
 toggle_smart_buffer_management( int use_smart ) {
   timed_buffer_management = use_smart;
 }
@@ -525,9 +525,9 @@ produce_eval_text( EvaluationType eval_info, int short_output ) {
     else {
       disk_diff = eval_info.score / 128.0;
       if ( short_output )
-	len = sprintf( buffer, "%+.2f", disk_diff );
+        len = sprintf( buffer, "%+.2f", disk_diff );
       else
-	len = sprintf( buffer, "%+.2f %s", disk_diff, DISCS_TEXT );
+        len = sprintf( buffer, "%+.2f %s", disk_diff, DISCS_TEXT );
     }
     break;
 
@@ -536,13 +536,13 @@ produce_eval_text( EvaluationType eval_info, int short_output ) {
       len = sprintf( buffer, "%+d", eval_info.score >> 7 );
     else
       if ( eval_info.score > 0 )
-	len = sprintf( buffer, "%s %d-%d", WIN_BY_TEXT,
-		       32 + (eval_info.score >> 8),
-		       32 - (eval_info.score >> 8) );
+        len = sprintf( buffer, "%s %d-%d", WIN_BY_TEXT,
+                       32 + (eval_info.score >> 8),
+                       32 - (eval_info.score >> 8) );
       else if ( eval_info.score < 0 )
         len = sprintf( buffer, "%s %d-%d", LOSS_BY_TEXT,
-		       32 - (abs( eval_info.score ) >> 8),
-		       32 + (abs( eval_info.score ) >> 8) );
+                       32 - (abs( eval_info.score ) >> 8),
+                       32 + (abs( eval_info.score ) >> 8) );
       else
         len = sprintf( buffer, DRAW_TEXT );
     break;
@@ -552,49 +552,49 @@ produce_eval_text( EvaluationType eval_info, int short_output ) {
       switch ( eval_info.res ) {
 
       case WON_POSITION:
-	len = sprintf( buffer, WIN_TEXT );
-	break;
+        len = sprintf( buffer, WIN_TEXT );
+        break;
 
       case DRAWN_POSITION:
-	len = sprintf( buffer, DRAW_TEXT );
-	break;
+        len = sprintf( buffer, DRAW_TEXT );
+        break;
 
       case LOST_POSITION:
-	len = sprintf( buffer, LOSS_TEXT );
-	break;
+        len = sprintf( buffer, LOSS_TEXT );
+        break;
 
       case UNSOLVED_POSITION:
-	len = sprintf( buffer, "???" );
-	break;
+        len = sprintf( buffer, "???" );
+        break;
       }
     else
       switch ( eval_info.res ) {
 
       case WON_POSITION:
-	if ( eval_info.score != +1 * 128 )  /* Lower bound on win */
-	  len = sprintf( buffer, "%s %d-%d", WIN_BY_BOUND_TEXT,
-			 32 + (eval_info.score >> 8),
-			 32 - (eval_info.score >> 8) );
-	else
-	  len = sprintf( buffer, WIN_TEXT );
-	break;
+        if ( eval_info.score != +1 * 128 )  /* Lower bound on win */
+          len = sprintf( buffer, "%s %d-%d", WIN_BY_BOUND_TEXT,
+                         32 + (eval_info.score >> 8),
+                         32 - (eval_info.score >> 8) );
+        else
+          len = sprintf( buffer, WIN_TEXT );
+        break;
 
       case DRAWN_POSITION:
-	len = sprintf( buffer, DRAW_TEXT );
-	break;
+        len = sprintf( buffer, DRAW_TEXT );
+        break;
 
       case LOST_POSITION:
-	if ( eval_info.score != -1 * 128 )  /* Upper bound on win */
-	  len = sprintf( buffer, "%s %d-%d", LOSS_BY_BOUND_TEXT,
-			 32 - (abs( eval_info.score ) >> 8),
-			 32 + (abs( eval_info.score ) >> 8) );
-	else
-	  len = sprintf( buffer, LOSS_TEXT );
-	break;
+        if ( eval_info.score != -1 * 128 )  /* Upper bound on win */
+          len = sprintf( buffer, "%s %d-%d", LOSS_BY_BOUND_TEXT,
+                         32 - (abs( eval_info.score ) >> 8),
+                         32 + (abs( eval_info.score ) >> 8) );
+        else
+          len = sprintf( buffer, LOSS_TEXT );
+        break;
 
       case UNSOLVED_POSITION:
-	len = sprintf( buffer, "???" );
-	break;
+        len = sprintf( buffer, "???" );
+        break;
       }
     break;
 
@@ -603,27 +603,27 @@ produce_eval_text( EvaluationType eval_info, int short_output ) {
     switch ( eval_info.res ) {
     case WON_POSITION:
       if ( eval_info.score != +1 * 128 )
-	len = sprintf( buffer, "%+d @ %d%%", eval_info.score / 128,
-		       int_confidence );
+        len = sprintf( buffer, "%+d @ %d%%", eval_info.score / 128,
+                       int_confidence );
       else
-	len = sprintf( buffer, "%s @ %d%%", WIN_TEXT, int_confidence );
+        len = sprintf( buffer, "%s @ %d%%", WIN_TEXT, int_confidence );
       break;
     case DRAWN_POSITION:
       len = sprintf( buffer, "%s @ %d%%", DRAW_TEXT, int_confidence );
       break;
     case LOST_POSITION:
       if ( eval_info.score != -1 * 128 )
-	len = sprintf( buffer, "%+d @ %d%%", eval_info.score >> 7,
-		       int_confidence );
+        len = sprintf( buffer, "%+d @ %d%%", eval_info.score >> 7,
+                       int_confidence );
       else
-	len = sprintf( buffer, "%s @ %d%%", LOSS_TEXT, int_confidence );
+        len = sprintf( buffer, "%s @ %d%%", LOSS_TEXT, int_confidence );
       break;
     case UNSOLVED_POSITION:
       if ( eval_info.score == 0 )
-	len = sprintf( buffer, "Draw @ %d%%", int_confidence );
+        len = sprintf( buffer, "Draw @ %d%%", int_confidence );
       else
-	len = sprintf( buffer, "%+d @ %d%%", eval_info.score / 128,
-		       int_confidence );
+        len = sprintf( buffer, "%+d @ %d%%", eval_info.score / 128,
+                       int_confidence );
       break;
     }
     break;

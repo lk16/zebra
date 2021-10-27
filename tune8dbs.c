@@ -4,7 +4,7 @@
    Created:       July 25, 1998
 
    Modified:      December 20, 2001
-   
+
    Author:        Gunnar Andersson (gunnar@radagast.se)
 
    Contents:      The database is analyzed with statistical methods;
@@ -88,7 +88,7 @@ typedef struct {
   short score;
   short stage;
 } CompactPosition;
-   
+
 
 double objective;
 double abs_error_sum;
@@ -186,11 +186,11 @@ int pack_position( char *buffer, int index ) {
     for ( j = 0; j < 8; j++ ) {
       mask *= 4;
       if ( black_mask & (1 << j) )
-	mask += BLACKSQ;
+        mask += BLACKSQ;
       else if ( white_mask & (1 << j) )
-	mask += WHITESQ;
+        mask += WHITESQ;
       else
-	mask += EMPTY;
+        mask += EMPTY;
     }
     position_list[index].row_bit_vec[i] = mask;
   }
@@ -206,7 +206,7 @@ int pack_position( char *buffer, int index ) {
     break;
   default:
     printf( "Invalid side to move indicator on line %d in input file\n",
-	    index );
+            index );
     break;
   }
 
@@ -253,17 +253,17 @@ void display_board( int index ) {
     for (j = 1; j <= 8; j++)
       switch (board[10 * i + j]) {
       case EMPTY:
-	printf(" ");
-	break;
+        printf(" ");
+        break;
       case BLACKSQ:
-	printf("*");
-	break;
+        printf("*");
+        break;
       case WHITESQ:
-	printf("O");
-	break;
+        printf("O");
+        break;
       default:
-	printf("?");
-	break;
+        printf("?");
+        break;
       }
     puts("");
   }
@@ -277,7 +277,7 @@ void display_board( int index ) {
 /*
    READ_POSITION_FILE
    Reads a game database and creates a game tree containing its games.
-*/   
+*/
 
 void read_position_file(char *file_name) {
   FILE *stream;
@@ -300,7 +300,7 @@ void read_position_file(char *file_name) {
     fgets( buffer, 100, stream );
     if ( !feof( stream ) )
       if ( pack_position( buffer, position_count ) )
-	position_count++;
+        position_count++;
   } while ( !feof( stream ) && (position_count < max_positions) );
 
   fclose( stream );
@@ -360,10 +360,10 @@ void sort( int *vec, int count ) {
     changed = 0;
     for ( i = 0; i < count - 1; i++ )
       if ( vec[i] > vec[i + 1] ) {
-	changed = 1;
-	temp = vec[i];
-	vec[i] = vec[i + 1];
-	vec[i + 1] = temp;
+        changed = 1;
+        temp = vec[i];
+        vec[i] = vec[i + 1];
+        vec[i + 1] = temp;
       }
   } while ( changed );
 }
@@ -376,11 +376,11 @@ void sort( int *vec, int count ) {
 */
 
 void determine_features( int side_to_move, int stage, int *global_parity,
-			 int *buffer_a, int *buffer_b,
-			 int *buffer_c, int *buffer_d,
-			 int *buffer_52, int *buffer_33,
-			 int *buffer_8, int *buffer_7, int *buffer_6,
-			 int *buffer_5, int *buffer_4 ) {
+                         int *buffer_a, int *buffer_b,
+                         int *buffer_c, int *buffer_d,
+                         int *buffer_52, int *buffer_33,
+                         int *buffer_8, int *buffer_7, int *buffer_6,
+                         int *buffer_5, int *buffer_4 ) {
   int config52, config33;
 
   compute_patterns();
@@ -539,45 +539,45 @@ void determine_features( int side_to_move, int stage, int *global_parity,
     if ( side_to_move == BLACKSQ ) {
       /* a1-c1 + a2-c2 + a3-c3 */
       config33 = (row_pattern[0] & 63) +
-	((row_pattern[1] & 63) << 6) +
-	((row_pattern[2] & 63) << 12);
+        ((row_pattern[1] & 63) << 6) +
+        ((row_pattern[2] & 63) << 12);
       buffer_33[0] = mirror33[compact[config33]];
       /* h1-f1 + h2-f2 + h3-f3 */
       config33 = (row_pattern[0] >> 10) +
-	((row_pattern[1] >> 10) << 6) +
-	((row_pattern[2] >> 10) << 12);
+        ((row_pattern[1] >> 10) << 6) +
+        ((row_pattern[2] >> 10) << 12);
       buffer_33[1] = mirror33[flip33[compact[config33]]];
       /* a8-c8 + a7-c7 + a6-c6 */
       config33 = (row_pattern[7] & 63) +
-	((row_pattern[6] & 63) << 6) +
-	((row_pattern[5] & 63) << 12);
+        ((row_pattern[6] & 63) << 6) +
+        ((row_pattern[5] & 63) << 12);
       buffer_33[2] = mirror33[compact[config33]];
       /* h8-f8 + h7-f7 + h6-f6 */
       config33 = (row_pattern[7] >> 10) +
-	((row_pattern[6] >> 10) << 6) +
-	((row_pattern[5] >> 10) << 12);
+        ((row_pattern[6] >> 10) << 6) +
+        ((row_pattern[5] >> 10) << 12);
       buffer_33[3] = mirror33[flip33[compact[config33]]];
     }
     else {
       /* a1-c1 + a2-c2 + a3-c3 */
       config33 = (row_pattern[0] & 63) +
-	((row_pattern[1] & 63) << 6) +
-	((row_pattern[2] & 63) << 12);
+        ((row_pattern[1] & 63) << 6) +
+        ((row_pattern[2] & 63) << 12);
       buffer_33[0] = mirror33[inverse9[compact[config33]]];
       /* h1-f1 + h2-f2 + h3-f3 */
       config33 = (row_pattern[0] >> 10) +
-	((row_pattern[1] >> 10) << 6) +
-	((row_pattern[2] >> 10) << 12);
+        ((row_pattern[1] >> 10) << 6) +
+        ((row_pattern[2] >> 10) << 12);
       buffer_33[1] = mirror33[inverse9[flip33[compact[config33]]]];
       /* a8-c8 + a7-c7 + a6-c6 */
       config33 = (row_pattern[7] & 63) +
-	((row_pattern[6] & 63) << 6) +
-	((row_pattern[5] & 63) << 12);
+        ((row_pattern[6] & 63) << 6) +
+        ((row_pattern[5] & 63) << 12);
       buffer_33[2] = mirror33[inverse9[compact[config33]]];
       /* h8-f8 + h7-f7 + h6-f6 */
       config33 = (row_pattern[7] >> 10) +
-	((row_pattern[6] >> 10) << 6) +
-	((row_pattern[5] >> 10) << 12);
+        ((row_pattern[6] >> 10) << 6) +
+        ((row_pattern[5] >> 10) << 12);
       buffer_33[3] = mirror33[inverse9[flip33[compact[config33]]]];
     }
   }
@@ -668,7 +668,7 @@ void determine_features( int side_to_move, int stage, int *global_parity,
 /*
    PERFORM_ANALYSIS
    Updates frequency counts.
-*/   
+*/
 
 void perform_analysis( int index ) {
   int coeff, start, stop;
@@ -682,10 +682,10 @@ void perform_analysis( int index ) {
   stage = position_list[index].stage;
 
   determine_features( side_to_move, stage,
-		      &global_parity, buffer_a, buffer_b,
-		      buffer_c, buffer_d, buffer_52,
-		      buffer_33, buffer_8, buffer_7, buffer_6,
-		      buffer_5, buffer_4 );
+                      &global_parity, buffer_a, buffer_b,
+                      buffer_c, buffer_d, buffer_52,
+                      buffer_33, buffer_8, buffer_7, buffer_6,
+                      buffer_5, buffer_4 );
 
   /* The D file */
 
@@ -857,10 +857,10 @@ void perform_evaluation( int index ) {
   stage = position_list[index].stage;
 
   determine_features( side_to_move, stage,
-		      &global_parity, buffer_a, buffer_b,
-		      buffer_c, buffer_d, buffer_52,
-		      buffer_33, buffer_8, buffer_7, buffer_6,
-		      buffer_5, buffer_4 );
+                      &global_parity, buffer_a, buffer_b,
+                      buffer_c, buffer_d, buffer_52,
+                      buffer_33, buffer_8, buffer_7, buffer_6,
+                      buffer_5, buffer_4 );
 
   /* Calculate the contribution to the gradient and the objective */
 
@@ -977,10 +977,10 @@ void perform_step_update( int index ) {
   stage = position_list[index].stage;
 
   determine_features( side_to_move, stage,
-		      &global_parity, buffer_a, buffer_b,
-		      buffer_c, buffer_d, buffer_52,
-		      buffer_33, buffer_8, buffer_7, buffer_6,
-		      buffer_5, buffer_4 );
+                      &global_parity, buffer_a, buffer_b,
+                      buffer_c, buffer_d, buffer_52,
+                      buffer_33, buffer_8, buffer_7, buffer_6,
+                      buffer_5, buffer_4 );
 
   /* Calculate the contribution to the gradient and the objective */
 
@@ -1115,7 +1115,7 @@ void analyze_games( void ) {
 /*
    EVALUATE_GAMES
    Determines the gradient for all patterns.
-*/   
+*/
 
 void evaluate_games( void ) {
   node_count = 0;
@@ -1127,7 +1127,7 @@ void evaluate_games( void ) {
 /*
    DETERMINE_GAMES
    Determines the optimal step length.
-*/   
+*/
 
 void determine_games( void ) {
   node_count = 0;
@@ -1190,12 +1190,12 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if (row[j] == 3)
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while (row[j - 1] == 0 && j < 10);
   }
 
-  /* Build the pattern tables for 8*1-patterns */   
+  /* Build the pattern tables for 8*1-patterns */
 
   for (i = 0; i < 8; i++)
     row[i] = 0;
@@ -1216,7 +1216,7 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if (row[j] == 3)
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while (row[j - 1] == 0 && j < 8);
   }
@@ -1239,12 +1239,12 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if (row[j] == 3)
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while (row[j - 1] == 0 && j < 7);
   }
 
-  /* Build the tables for 6*1-patterns */   
+  /* Build the tables for 6*1-patterns */
 
   for (i = 0; i < 6; i++)
     row[i] = 0;
@@ -1262,12 +1262,12 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if (row[j] == 3)
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while (row[j - 1] == 0 && j < 6);
   }
 
-  /* Build the tables for 5*1-patterns */   
+  /* Build the tables for 5*1-patterns */
 
   for (i = 0; i < 5; i++)
     row[i] = 0;
@@ -1286,12 +1286,12 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if ( row[j] == 3 )
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while (row[j - 1] == 0 && j < 5);
   }
 
-  /* Build the tables for 4*1-patterns */   
+  /* Build the tables for 4*1-patterns */
 
   for ( i = 0; i < 4; i++ )
     row[i] = 0;
@@ -1309,12 +1309,12 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if ( row[j] == 3 )
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while ( (row[j - 1] == 0) && (j < 4) );
   }
 
-  /* Build the tables for 3*1-patterns */   
+  /* Build the tables for 3*1-patterns */
 
   for ( i = 0; i < 3; i++ )
     row[i] = 0;
@@ -1333,7 +1333,7 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if ( row[j] == 3 )
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while ( (row[j - 1] == 0) && (j < 3) );
   }
@@ -1351,8 +1351,8 @@ void pattern_setup( void ) {
   for ( i = 0; i < 27; i++ )
     for ( j = 0; j < 27; j++ )
       for ( k = 0; k < 27; k++ )
-	flip33[729 * i + 27 * j + k] =
-	  729 * flip3[i] + 27 * flip3[j] + flip3[k];
+        flip33[729 * i + 27 * j + k] =
+          729 * flip3[i] + 27 * flip3[j] + flip3[k];
 
   for ( i = 0; i < 9; i++ )
     row[i] = 0;
@@ -1369,7 +1369,7 @@ void pattern_setup( void ) {
     do {  /* The odometer principle */
       row[j]++;
       if ( row[j] == 3 )
-	row[j] = 0;
+        row[j] = 0;
       j++;
     } while ( (row[j - 1] == 0) && (j < 9) );
   }
@@ -1379,8 +1379,8 @@ void pattern_setup( void ) {
   for ( i = 0; i < 6561; i++ )
     for ( j = 0; j < 3; j++ )
       for ( k = 0; k < 3; k++ )
-	mirror82x[i + 6561 * j + 19683 * k] =
-	  MIN( flip8[i] + 6561 * k + 19683 * j, i + 6561 * j + 19683 * k );
+        mirror82x[i + 6561 * j + 19683 * k] =
+          MIN( flip8[i] + 6561 * k + 19683 * j, i + 6561 * j + 19683 * k );
    /* Create the connections position <--> patterns affected */
 
   for ( i = 1; i <= 8; i++ )
@@ -1392,14 +1392,14 @@ void pattern_setup( void ) {
       col_index[pos] = i - 1;
       diag1_no[pos] = j - i + 7;
       if ( i >= j )  /* First 8 diagonals */
-	diag1_index[pos] = j - 1;
+        diag1_index[pos] = j - 1;
       else
-	diag1_index[pos] = i - 1;            
+        diag1_index[pos] = i - 1;
       diag2_no[pos] = j + i - 2;
       if ( i + j <= 9 )  /* First 8 diagonals */
-	diag2_index[pos] = j - 1;
+        diag2_index[pos] = j - 1;
       else
-	diag2_index[pos] = 8 - i;
+        diag2_index[pos] = 8 - i;
     }
 
   /* Reset the coefficients for the different patterns */
@@ -1504,7 +1504,7 @@ void save( const char *base, char *suffix, InfoItem *items, int count ) {
 /*
    STORE_PATTERNS
    Writes all sets of feature values to disc.
-*/   
+*/
 
 void store_patterns( void ) {
   char suffix[8];
@@ -1576,7 +1576,7 @@ void write_log( int iteration ) {
     printf( "Error appending to '%s'\n", file_name );
   else {
     fprintf( stream, "#%3d  Obj=%.8f  Error=%.8f  Max=%.6f  Av=%.6f\n",
-	     iteration, objective, abs_error_sum, max_delta, average_delta );
+             iteration, objective, abs_error_sum, max_delta, average_delta );
     fclose( stream );
   }
 }
@@ -1588,10 +1588,10 @@ void write_log( int iteration ) {
    zeroes all values.
    Note: One-dimensional linear regression is no longer performed
    due to its poor performance.
-*/   
+*/
 
 void initialize_solution( const char *base, InfoItem *item, int count,
-			  int *my_mirror ) {
+                          int *my_mirror ) {
   char file_name[32];
   float *vals;
   int i;
@@ -1611,13 +1611,13 @@ void initialize_solution( const char *base, InfoItem *item, int count,
     fclose( stream );
     for ( i = 0; i < count; i++ )
       if ( freq[i] > 0 ) {
-	item[i].solution = vals[i];
-	if ( vals[i] > 100.0 )
-	  printf( "i=%d, strange value %.2f, freq=%d\n",
-		  i, vals[i], freq[i] );
+        item[i].solution = vals[i];
+        if ( vals[i] > 100.0 )
+          printf( "i=%d, strange value %.2f, freq=%d\n",
+                  i, vals[i], freq[i] );
       }
       else
-	item[i].solution = 0.0;
+        item[i].solution = 0.0;
     free( freq );
     free( vals );
   }
@@ -1700,12 +1700,12 @@ void update_solution( InfoItem *item, int count, double scale ) {
       change = scale * item[i].direction;
       abs_change = fabs( change );
       if ( abs_change > max_delta )
-	max_delta = abs_change;
+        max_delta = abs_change;
       delta_sum += abs_change;
       if ( change > +UPDATE_BOUND )
-	change = +UPDATE_BOUND;
+        change = +UPDATE_BOUND;
       else if ( change < -UPDATE_BOUND )
-	change = -UPDATE_BOUND;
+        change = -UPDATE_BOUND;
       limit_change( &item[i].solution, change );
       update_count++;
     }
@@ -1724,7 +1724,7 @@ void update_search_direction(InfoItem *item, int count, double beta) {
   for (i = 0; i < count; i++)
     if (!item[i].most_common)
       item[i].direction =
-	beta * item[i].direction - item[i].gradient;
+        beta * item[i].direction - item[i].gradient;
     else
       item[i].direction = 0.0;
 }
@@ -1794,23 +1794,23 @@ int main(int argc, char *argv[]) {
 
   if ( analysis_stage != 0 )
     for ( i = stage[analysis_stage - 1] + 1;
-	  i <= stage[analysis_stage]; i++ ) {
+          i <= stage[analysis_stage]; i++ ) {
       active[i] = TRUE;
       weight[i] = sqrt( 1.0 * (i - stage[analysis_stage - 1]) /
-			(stage[analysis_stage] - stage[analysis_stage - 1]) );
+                        (stage[analysis_stage] - stage[analysis_stage - 1]) );
     }
   if ( analysis_stage != stage_count - 1 )
     for ( i = stage[analysis_stage]; i < stage[analysis_stage + 1]; i++ ) {
       active[i] = TRUE;
       weight[i] = sqrt( 1.0 * (stage[analysis_stage + 1] - i) /
-			(stage[analysis_stage + 1] - stage[analysis_stage]) );
+                        (stage[analysis_stage + 1] - stage[analysis_stage]) );
     }
   for ( i = 0; i <= 60; i++ )
     if ( active[i] )
       last_active = i;
   printf( "Last active phase: %d\n", last_active );
 
-  /* Initialize the database */   
+  /* Initialize the database */
 
   read_position_file( game_file );
 
@@ -1820,7 +1820,7 @@ int main(int argc, char *argv[]) {
   fflush( stdout );
   analyze_games();
   printf( " done (%d relevant nodes out of %d)\n", relevant_count,
-	  node_count );
+          node_count );
 
   interval = (((relevant_count / 5) + 9) / 10) * 10;
 
@@ -1888,38 +1888,38 @@ int main(int argc, char *argv[]) {
       parity.gradient = 0.0;
     if ( USE_A_FILE2X )
       for ( i = 0; i < 59059; i++ )
-	afile2x[i].gradient = 0.0;
+        afile2x[i].gradient = 0.0;
     if ( USE_CORNER52 )
       for ( i = 0; i < 59049; i++ )
-	corner52[i].gradient = 0.0;
+        corner52[i].gradient = 0.0;
     if ( USE_CORNER33 )
       for ( i = 0; i < 19683; i++ )
-	corner33[i].gradient = 0.0;
+        corner33[i].gradient = 0.0;
     for ( i = 0; i < 6561; i++ ) {
       if ( USE_A_FILE )
-	afile[i].gradient = 0.0;
+        afile[i].gradient = 0.0;
       if ( USE_B_FILE )
-	bfile[i].gradient = 0.0;
+        bfile[i].gradient = 0.0;
       if ( USE_C_FILE )
-	cfile[i].gradient = 0.0;
+        cfile[i].gradient = 0.0;
       if ( USE_D_FILE )
-	dfile[i].gradient = 0.0;
+        dfile[i].gradient = 0.0;
       if ( USE_DIAG8 )
-	diag8[i].gradient = 0.0;
+        diag8[i].gradient = 0.0;
       }
     if ( USE_DIAG7 )
       for ( i = 0; i < 2187; i++ )
-	diag7[i].gradient = 0.0;
+        diag7[i].gradient = 0.0;
     if ( USE_DIAG6 )
       for ( i = 0; i < 729; i++ )
-	diag6[i].gradient = 0.0;
+        diag6[i].gradient = 0.0;
     if ( USE_DIAG5 )
       for ( i = 0; i < 243; i++ )
-	diag5[i].gradient = 0.0;
+        diag5[i].gradient = 0.0;
     if ( USE_DIAG4 )
       for ( i = 0; i < 81; i++ )
-	diag4[i].gradient = 0.0;
-      
+        diag4[i].gradient = 0.0;
+
     objective = 0.0;
     abs_error_sum = 0.0;
     printf( "\nDetermining gradient:      " );
@@ -1933,8 +1933,8 @@ int main(int argc, char *argv[]) {
     store_patterns();
     time(&curr_time);
     printf( "Objective: %.8f    Av. error: %.8f    Time: %ld s    Iter %d\n",
-	    objective, abs_error_sum, (long) (curr_time - start_time),
-	    iteration );
+            objective, abs_error_sum, (long) (curr_time - start_time),
+            iteration );
 
     /* Measure the gradient */
 
@@ -1947,49 +1947,49 @@ int main(int argc, char *argv[]) {
       grad_sum += SQR(parity.gradient);
     if ( USE_A_FILE2X )
       for (i = 0; i < 59049; i++)
-	if (!afile2x[i].most_common)
-	  grad_sum += SQR(afile2x[i].gradient);
+        if (!afile2x[i].most_common)
+          grad_sum += SQR(afile2x[i].gradient);
     if ( USE_CORNER52 )
       for ( i = 0; i < 59049; i++ )
-	if ( !corner52[i].most_common )
-	  grad_sum += SQR( corner52[i].gradient );
+        if ( !corner52[i].most_common )
+          grad_sum += SQR( corner52[i].gradient );
     if ( USE_CORNER33 )
       for (i = 0; i < 19683; i++)
-	if (!corner33[i].most_common)
-	  grad_sum += SQR(corner33[i].gradient);
+        if (!corner33[i].most_common)
+          grad_sum += SQR(corner33[i].gradient);
     for (i = 0; i < 6561; i++) {
       if ( USE_A_FILE )
-	if (!afile[i].most_common)
-	  grad_sum += SQR(afile[i].gradient);
+        if (!afile[i].most_common)
+          grad_sum += SQR(afile[i].gradient);
       if ( USE_B_FILE )
-	if (!bfile[i].most_common)
-	  grad_sum += SQR(bfile[i].gradient);
+        if (!bfile[i].most_common)
+          grad_sum += SQR(bfile[i].gradient);
       if ( USE_C_FILE )
-	if (!cfile[i].most_common)
-	  grad_sum += SQR(cfile[i].gradient);
+        if (!cfile[i].most_common)
+          grad_sum += SQR(cfile[i].gradient);
       if ( USE_D_FILE )
-	if (!dfile[i].most_common)
-	  grad_sum += SQR(dfile[i].gradient);
+        if (!dfile[i].most_common)
+          grad_sum += SQR(dfile[i].gradient);
       if ( USE_DIAG8 )
-	if (!diag8[i].most_common)
-	  grad_sum += SQR(diag8[i].gradient);
+        if (!diag8[i].most_common)
+          grad_sum += SQR(diag8[i].gradient);
     }
     if ( USE_DIAG7 )
       for (i = 0; i < 2187; i++)
-	if (!diag7[i].most_common)
-	  grad_sum += SQR(diag7[i].gradient);
+        if (!diag7[i].most_common)
+          grad_sum += SQR(diag7[i].gradient);
     if ( USE_DIAG6 )
       for (i = 0; i < 729; i++)
-	if (!diag6[i].most_common)
-	  grad_sum += SQR(diag6[i].gradient);
+        if (!diag6[i].most_common)
+          grad_sum += SQR(diag6[i].gradient);
     if ( USE_DIAG5 )
       for (i = 0; i < 243; i++)
-	if (!diag5[i].most_common)
-	  grad_sum += SQR(diag5[i].gradient);
+        if (!diag5[i].most_common)
+          grad_sum += SQR(diag5[i].gradient);
     if ( USE_DIAG4 )
       for (i = 0; i < 81; i++)
-	if (!diag4[i].most_common)
-	  grad_sum += SQR(diag4[i].gradient);
+        if (!diag4[i].most_common)
+          grad_sum += SQR(diag4[i].gradient);
 
     /* Determine the current search direction */
 
@@ -2048,10 +2048,10 @@ int main(int argc, char *argv[]) {
     delta_sum = 0.0;
     update_count = 0;
     limit_change(&constant.solution,
-		 alpha * constant.direction / total_weight);
+                 alpha * constant.direction / total_weight);
     if ( USE_PARITY )
       limit_change(&parity.solution,
-		   alpha * parity.direction / total_weight);
+                   alpha * parity.direction / total_weight);
     if ( USE_A_FILE )
       update_solution(afile, 6561, alpha / total_weight);
     else if ( USE_A_FILE2X )
@@ -2079,7 +2079,7 @@ int main(int argc, char *argv[]) {
 
     average_delta = delta_sum / update_count;
     printf("Constant: %.4f  Parity: %.4f  Max change: %.5f  Av. change: %.5f\n",
-	   constant.solution, parity.solution, max_delta, average_delta);
+           constant.solution, parity.solution, max_delta, average_delta);
     if (iteration % 10 == 0)
       write_log(iteration);
   }

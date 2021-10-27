@@ -125,8 +125,8 @@ CXX		= g++
 DEFS =		-DINCLUDE_BOOKTOOL -DTEXT_BASED -DZLIB_STATIC
 
 WARNINGS =	-Wall -Wcast-align -Wwrite-strings -Wstrict-prototypes -Winline
-OPTS =		-O4 -s -fomit-frame-pointer -falign-functions=32
-#OPTS =		-O4 -s -fomit-frame-pointer -mtune=core2 -falign-functions=32
+#OPTS =		-O4 -s -fomit-frame-pointer -falign-functions=32
+OPTS =		-g
 
 CFLAGS =	$(OPTS) $(WARNINGS) $(DEFS)
 CXXFLAGS =	$(CFLAGS)
@@ -176,10 +176,10 @@ tune8dbs:
 	$(CC) -o $(TUNE8DBS_EXE) $(CFLAGS) tune8dbs.c $(LDFLAGS)
 
 genbb:	genbb.o
-	$(CC) -o genbb genbb.o	
+	$(CC) -o genbb genbb.o
 
 genmmx:	genmmx.o
-	$(CXX) -o genmmx genmmx.o	
+	$(CXX) -o genmmx genmmx.o
 
 depend:
 	makedepend -Y $(ALL_SRCS)

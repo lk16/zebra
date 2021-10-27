@@ -4,11 +4,11 @@
    Modified:      November 15, 2005
 
    Authors:       Gunnar Andersson (gunnar@radagast.se)
-	          Toshihiko Okuhara
+                  Toshihiko Okuhara
 
    Contents:      Low-level code which flips the discs (if any) affected
                   by a potential move, with or without updating the
-		  hash code.
+                  hash code.
 
    This piece of software is released under the GPL.
    See the file COPYING for more information.
@@ -61,23 +61,23 @@ static const char board_region[100] = {
     if ( *pt == oppcol ) {                               \
       pt += inc;                                         \
       if ( *pt == oppcol ) {                             \
-	pt += inc;                                       \
-	if ( *pt == oppcol ) {                           \
-	  pt += inc;                                     \
-	  if ( *pt == oppcol ) {                         \
-	    pt += inc;                                   \
-	    if ( *pt == oppcol )                         \
-	      pt += inc;                                 \
-	  }                                              \
-	}                                                \
+        pt += inc;                                       \
+        if ( *pt == oppcol ) {                           \
+          pt += inc;                                     \
+          if ( *pt == oppcol ) {                         \
+            pt += inc;                                   \
+            if ( *pt == oppcol )                         \
+              pt += inc;                                 \
+          }                                              \
+        }                                                \
       }                                                  \
     }                                                    \
     if ( *pt == color ) {                                \
       pt -= inc;                                         \
       do {                                               \
-	*pt = color;                                     \
-	*(t_flip_stack++) = pt;                          \
-	pt -= inc;                                       \
+        *pt = color;                                     \
+        *(t_flip_stack++) = pt;                          \
+        pt -= inc;                                       \
       } while ( pt != sq );                              \
     }                                                    \
   }                                                      \
@@ -92,17 +92,17 @@ static const char board_region[100] = {
     if ( *pt == oppcol ) {                               \
       pt += inc;                                         \
       if ( *pt == oppcol ) {                             \
-	pt += inc;                                       \
-	if ( *pt == oppcol )                             \
-	  pt += inc;                                     \
+        pt += inc;                                       \
+        if ( *pt == oppcol )                             \
+          pt += inc;                                     \
       }                                                  \
     }                                                    \
     if ( *pt == color ) {                                \
       pt -= inc;                                         \
       do {                                               \
-	*pt = color;                                     \
-	*(t_flip_stack++) = pt;                          \
-	pt -= inc;                                       \
+        *pt = color;                                     \
+        *(t_flip_stack++) = pt;                          \
+        pt -= inc;                                       \
       } while( pt != sq );                               \
     }                                                    \
   }                                                      \
@@ -194,9 +194,9 @@ DoFlips_no_hash( int sqnum, int color ) {
     if ( *pt == oppcol ) {                               \
       pt += inc;                                         \
       if ( *pt == oppcol ) {                             \
-	pt += inc;                                       \
-	if ( *pt == oppcol )                             \
-	  pt += inc;                                     \
+        pt += inc;                                       \
+        if ( *pt == oppcol )                             \
+          pt += inc;                                     \
       }                                                  \
     }                                                    \
     if ( *pt == color ) {                                \
@@ -204,9 +204,9 @@ DoFlips_no_hash( int sqnum, int color ) {
       do {                                               \
         t_hash_update1 ^= hash_flip1[pt - board];        \
         t_hash_update2 ^= hash_flip2[pt - board];        \
-	*pt = color;                                     \
-	*(t_flip_stack++) = pt;                          \
-	pt -= inc;                                       \
+        *pt = color;                                     \
+        *(t_flip_stack++) = pt;                          \
+        pt -= inc;                                       \
       } while ( pt != sq );                              \
     }                                                    \
   }                                                      \
@@ -221,15 +221,15 @@ DoFlips_no_hash( int sqnum, int color ) {
     if ( *pt == oppcol ) {                               \
       pt += inc;                                         \
       if ( *pt == oppcol ) {                             \
-	pt += inc;                                       \
-	if ( *pt == oppcol ) {                           \
-	  pt += inc;                                     \
-	  if ( *pt == oppcol ) {                         \
-	    pt += inc;                                   \
-	    if ( *pt == oppcol )                         \
-	      pt += inc;                                 \
-	  }                                              \
-	}                                                \
+        pt += inc;                                       \
+        if ( *pt == oppcol ) {                           \
+          pt += inc;                                     \
+          if ( *pt == oppcol ) {                         \
+            pt += inc;                                   \
+            if ( *pt == oppcol )                         \
+              pt += inc;                                 \
+          }                                              \
+        }                                                \
       }                                                  \
     }                                                    \
     if ( *pt == color ) {                                \
@@ -237,9 +237,9 @@ DoFlips_no_hash( int sqnum, int color ) {
       do {                                               \
         t_hash_update1 ^= hash_flip1[pt - board];        \
         t_hash_update2 ^= hash_flip2[pt - board];        \
-	*pt = color;                                     \
-	*(t_flip_stack++) = pt;                          \
-	pt -= inc;                                       \
+        *pt = color;                                     \
+        *(t_flip_stack++) = pt;                          \
+        pt -= inc;                                       \
       } while ( pt != sq );                              \
     }                                                    \
   }                                                      \
